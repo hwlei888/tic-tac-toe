@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="mainContainer">
+        
+        <!-- reset and board size choose button -->
+        <div class="firstLine">
+            <div>
+                <button id="reset" type="button">Reset</button>
+            </div>
+        </div>
+    
+        <!-- logo -->
+        <div class="secondLine">
+            <h1>Tic Tac Toe</h1>
+        </div>
+    
+        <!-- player and winning and fair notification -->
+        <div class="thirdLine">
+            <div id="p1Win"></div>
+
+            <div id="pOne">
+                <p>Player One</p>
+                <P>&#10005</P>
+            </div>
+            
+            <div id="fair"></div>
+            
+            <div id="pTwo">
+                <p>Player Two</p>
+                <p>&#927</p>
+
+            </div>
+            
+            <div id="p2Win"></div>
+        </div>
+    
+        <!-- for rounds, player 1 & 2 winning times -->
+        <div class="forthLine"></div>
+        
+        <!-- 3 * 3 board -->
+        <div class="fifthLine">
+            <div class="zeroRow">
+                <div class="chequer x0y0"></div>
+                <div class="chequer x0y1"></div>
+                <div class="chequer x0y2"></div>        
+            </div>
+
+            <div class="firstRow">
+                <div class="chequer x1y0"></div>
+                <div class="chequer x1y1"></div>
+                <div class="chequer x1y2"></div>
+            </div>
+
+            <div class="secondRow">
+                <div class="chequer x2y0"></div>
+                <div class="chequer x2y1"></div>
+                <div class="chequer x2y2"></div>
+            </div>
+        </div>
+            
+    <!-- for showing which one's turn -->
+        <div class="sixthLine"></div>
+    </div>
+
+    <!-- <script src="js/jquery.js"></script> -->
+    <script src="js/main.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
