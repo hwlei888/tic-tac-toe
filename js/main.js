@@ -287,237 +287,314 @@ $('#restartGame').on('click', function(){
 
 
 
+/* ----------------------------------- Version 2 ------------------------------------------------- */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Several situations to decide if win or not.
 const makeDecision = function(r, c){
 
+    // let count;
     const rowLength = board[r].length;
     const columnLength = board.length;
 
     //horizontal
-    if (c + 1 < rowLength){ //decide if reach the edge
-        if(board[r][c + 1] === board[r][c]){ //c, c+1 same
-            if(c + 2 < rowLength){
-                if(board[r][c + 2] === board[r][c]){
-                    return board[r][c]; // if c, c+1, c+2 same
+    for(let r = 0; r < columnLength; r++){
+        for(let c = 0; c < rowLength - 2; c++){
+            if(board[r][c] === 1){
+                let count = 0;
+                for (let k = 0; k < 3; k++){
+                    count += board[r][c + k];
                 }
-                else{ //if c, c+1 same, c+2 not, check c-1
-                    if(c - 1 >= 0){
-                        if(board[r][c - 1] === board[r][c]){
-                            return board[r][c];
-                        }
-                    }
-                }
-            }
-            else{ // if the key is at second last position, and c, c+1 same, then check c - 1
-                if(board[r][c - 1] === board[r][c]){
+                if(count === 3){ //3 continuous 1
                     return board[r][c]
                 }
             }
-        }
-        else{ //c+1 not same, check c-1
-            if(c - 1 >= 0){
-                if(board[r][c - 1] === board[r][c]){
-                    if(c - 2 <= 0){ //c, c-1 same, check c-2
-                        if(board[r][c - 2] === board[r][c]){
-                            return board[r][c]; //c, c-1, c-2 same  
-                        }
-                    }
+            else if(board[r][c] === -1){
+                let count = 0;
+                for (let k = 0; k < 3; k++){
+                    count += board[r][c + k];
                 }
-            }
-        }
-    }
-    else{ // if the key is at the last position, check c, c-1 and c-2
-        if(board[r][c - 1] === board[r][c]){
-            if(board[r][c - 2] === board[r][c]){
-                return board[r][c];
+                if(count === -3){ //3 continouns -1
+                    return board[r][c]
+                }
             }
         }
     }
 
 
     //vertical
-    if(r + 1 < columnLength){
-        if(board[r + 1][c] === board[r][c]){ // r, r+1 same
-            if(r + 2 < columnLength){
-                if(board[r + 2][c] === board[r][c]){
-                    return board[r][c]; //if r, r+1, r+2 same
+    for(let c = 0; c < rowLength; c++){
+        for(let r = 0; r < columnLength - 2; r++){
+            if(board[r][c] === 1){
+                let count = 0;
+                for (let k = 0; k < 3; k++){
+                    count += board[r + k][c];
                 }
-                else{ //if r, r+1 same, r+2 not, check r-1
-                    if(r - 1 >= 0){
-                        if(board[r - 1][c] === board[r][c]){
-                            return board[r][c];
-                        }
-                    }
-                }
-            }
-            else{ // if the key is at second last position, and r, r+1 same, then check r - 1
-                if(board[r - 1][c] === board[r][c]){
+                if(count === 3){ //3 continuous 1
                     return board[r][c]
                 }
             }
-        }
-        else{ //r+1 not same, check r-1
-            if(r - 1 >= 0){
-                if(board[r - 1][c] === board[r][c]){
-                    if(r - 2 >= 0){ // r, r-1 same, check r-2
-                        if(board[r - 2][c] === board[r][c]){
-                            return board[r][c]; //r, r-1, r-2 same
-                        }
-                    }
+            else if(board[r][c] === -1){
+                let count = 0;
+                for (let k = 0; k < 3; k++){
+                    count += board[r + k][c];
                 }
-            }
-        }
-    }
-    else{ // if the key is at the last position, check r, r-1 and r-2
-        if(board[r - 1][c] === board[r][c]){
-            if(board[r - 2][c] === board[r][c]){
-                return board[r][c];
+                if(count === -3){ //3 continouns -1
+                    return board[r][c]
+                }
             }
         }
     }
 
 
     //right top oblique
-    if(r - 1 >= 0 && c + 1 < rowLength){
-        if(board[r - 1][c + 1] === board[r][c]){ // r-1,c+1 same as r,c
-            if(r - 2 >= 0 && c + 2 < rowLength){
-                if(board[r - 2][c + 2] === board[r][c]){
-                    return board[r][c]; //if r-1,c+1 and r-2,c+2 and r,c same
-                }
-                else{ //if r-1,c+1 same, r-2,c+2 not, check r+1,c-1
-                    if(r + 1 < columnLength && c - 1 >= 0){
-                        if(board[r + 1][c - 1] === board[r][c]){
-                            return board[r][c];
-                        }
+    for(let r = 0; r < columnLength; r++){
+        for(let c = 0; c < rowLength - 2; c++){
+            if(board[r][c] === 1){
+                let count = 0;
+                for (let k = 0; k < 3; k++){
+                    if(r - k >= 0){
+                        count += board[r - k][c + k];
                     }
                 }
-            }
-            else if(r + 1 < columnLength && c - 1 >= 0){ // if the key is at second last position, and r-1,c+1 same, then check r+1,c-1
-                if(board[r + 1][c - 1] === board[r][c]){
+                if(count === 3){ //3 continuous 1
                     return board[r][c]
                 }
             }
-        }
-        else{ //r-1,c+1 not same, check r+1,c-1
-            if(r + 1 < columnLength && c - 1 >= 0){
-                if(board[r + 1][c - 1] === board[r][c]){
-                    if(r + 2 < columnLength){ // r+1,c-1 same, check r+2,c-2
-                        if(board[r + 2][c - 2] === board[r][c]){
-                            return board[r][c]; //r, r-1, r-2 same
-                        }
+            else if(board[r][c] === -1){
+                let count = 0;
+                for (let k = 0; k < 3; k++){
+                    if(r - k >= 0){
+                        count += board[r - k][c + k];
                     }
                 }
-            }
-        }
-    }
-    else if(r + 1 < columnLength && c - 1 >= 0){ // if the key is at the last position, check r+1,c-1 and r+2,c-2
-        if(board[r + 1][c - 1] === board[r][c]){
-            if(r + 2 < columnLength && c - 2 >= 0){
-                if(board[r + 2][c - 2] === board[r][c]){
-                return board[r][c];
+                if(count === -3){ //3 continouns -1
+                    return board[r][c]
                 }
             }
         }
     }
 
-    
-    //Left top oblique
-    if(r + 1 < columnLength && c + 1 < rowLength){
-        if(board[r + 1][c + 1] === board[r][c]){ // r+1,c+1 same as r,c
-            if(r + 2 < columnLength && c + 2 < rowLength){
-                if(board[r + 2][c + 2] === board[r][c]){
-                    return board[r][c]; //if r+1,c+1 and r+2,c+2 and r,c same
+
+    //right down oblique
+    for(let r = 0; r < columnLength; r++){
+        for(let c = 0; c < rowLength - 2; c++){
+            if(board[r][c] === 1){
+                let count = 0;
+                for (let k = 0; k < 3; k++){
+                    if(r + k <= columnLength - 2){
+                        count += board[r + k][c + k];
+                    }
                 }
-                else{ //if r+1,c+1 same, r+2,c+2 not, check r-1,c-1
-                    if(r - 1 >= 0 && c - 1 >= 0){
-                        if(board[r - 1][c - 1] === board[r][c]){
-                            return board[r][c];
+                if(count === 3){ //3 continuous 1
+                    return board[r][c]
+                }
+            }
+            else if(board[r][c] === -1){
+                let count = 0;
+                for (let k = 0; k < 3; k++){
+                    if(r - k >= 0){
+                        if(r + k <= columnLength - 2){
+                            count += board[r + k][c + k];
                         }
                     }
                 }
-            }
-            else if(r - 1 >= 0 && c - 1 >= 0){ // if the key is at second last position, and r+1,c+1 same, then check r-1,c-1
-                if(board[r - 1][c - 1] === board[r][c]){
+                if(count === -3){ //3 continouns -1
                     return board[r][c]
                 }
             }
         }
-        else{ //r+1,c+1 not same, check r-1,c-1
-            if(r - 1 >= 0 && c - 1 >= 0){
-                if(board[r - 1][c - 1] === board[r][c]){
-                    if(r - 2 >= 0){ // r-1,c-1 same, check r-2,c-2
-                        if(board[r - 2][c - 2] === board[r][c]){
-                            return board[r][c]; //r, r-1, r-2 same
-                        }
-                    }
-                }
-            }
-        }
     }
-    else if(r - 1 >= 0 && c - 1 >= 0){ // if the key is at the last position, check r-1,c-1 and r-2,c-2
-        if(board[r - 1][c - 1] === board[r][c]){
-            if(r - 2 >= 0 && c - 2 >= 0){
-                if(board[r - 2][c - 2] === board[r][c]){
-                    return board[r][c];
-                }
-            }
-        }
-    }
+
 }
+
+
+
+
+
+
+
+
+
+
+/* ----------------------------------- Version 1 ------------------------------------------------- */
+//complicated way
+
+// // Several situations to decide if win or not.
+// const makeDecision = function(r, c){
+
+//     const rowLength = board[r].length;
+//     const columnLength = board.length;
+
+//     //horizontal
+//     if (c + 1 < rowLength){ //decide if reach the edge
+//         if(board[r][c + 1] === board[r][c]){ //c, c+1 same
+//             if(c + 2 < rowLength){
+//                 if(board[r][c + 2] === board[r][c]){
+//                     return board[r][c]; // if c, c+1, c+2 same
+//                 }
+//                 else{ //if c, c+1 same, c+2 not, check c-1
+//                     if(c - 1 >= 0){
+//                         if(board[r][c - 1] === board[r][c]){
+//                             return board[r][c];
+//                         }
+//                     }
+//                 }
+//             }
+//             else{ // if the key is at second last position, and c, c+1 same, then check c - 1
+//                 if(board[r][c - 1] === board[r][c]){
+//                     return board[r][c]
+//                 }
+//             }
+//         }
+//         else{ //c+1 not same, check c-1
+//             if(c - 1 >= 0){
+//                 if(board[r][c - 1] === board[r][c]){
+//                     if(c - 2 <= 0){ //c, c-1 same, check c-2
+//                         if(board[r][c - 2] === board[r][c]){
+//                             return board[r][c]; //c, c-1, c-2 same  
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+//     else{ // if the key is at the last position, check c, c-1 and c-2
+//         if(board[r][c - 1] === board[r][c]){
+//             if(board[r][c - 2] === board[r][c]){
+//                 return board[r][c];
+//             }
+//         }
+//     }
+
+
+//     //vertical
+//     if(r + 1 < columnLength){
+//         if(board[r + 1][c] === board[r][c]){ // r, r+1 same
+//             if(r + 2 < columnLength){
+//                 if(board[r + 2][c] === board[r][c]){
+//                     return board[r][c]; //if r, r+1, r+2 same
+//                 }
+//                 else{ //if r, r+1 same, r+2 not, check r-1
+//                     if(r - 1 >= 0){
+//                         if(board[r - 1][c] === board[r][c]){
+//                             return board[r][c];
+//                         }
+//                     }
+//                 }
+//             }
+//             else{ // if the key is at second last position, and r, r+1 same, then check r - 1
+//                 if(board[r - 1][c] === board[r][c]){
+//                     return board[r][c]
+//                 }
+//             }
+//         }
+//         else{ //r+1 not same, check r-1
+//             if(r - 1 >= 0){
+//                 if(board[r - 1][c] === board[r][c]){
+//                     if(r - 2 >= 0){ // r, r-1 same, check r-2
+//                         if(board[r - 2][c] === board[r][c]){
+//                             return board[r][c]; //r, r-1, r-2 same
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+//     else{ // if the key is at the last position, check r, r-1 and r-2
+//         if(board[r - 1][c] === board[r][c]){
+//             if(board[r - 2][c] === board[r][c]){
+//                 return board[r][c];
+//             }
+//         }
+//     }
+
+
+//     //right top oblique
+//     if(r - 1 >= 0 && c + 1 < rowLength){
+//         if(board[r - 1][c + 1] === board[r][c]){ // r-1,c+1 same as r,c
+//             if(r - 2 >= 0 && c + 2 < rowLength){
+//                 if(board[r - 2][c + 2] === board[r][c]){
+//                     return board[r][c]; //if r-1,c+1 and r-2,c+2 and r,c same
+//                 }
+//                 else{ //if r-1,c+1 same, r-2,c+2 not, check r+1,c-1
+//                     if(r + 1 < columnLength && c - 1 >= 0){
+//                         if(board[r + 1][c - 1] === board[r][c]){
+//                             return board[r][c];
+//                         }
+//                     }
+//                 }
+//             }
+//             else if(r + 1 < columnLength && c - 1 >= 0){ // if the key is at second last position, and r-1,c+1 same, then check r+1,c-1
+//                 if(board[r + 1][c - 1] === board[r][c]){
+//                     return board[r][c]
+//                 }
+//             }
+//         }
+//         else{ //r-1,c+1 not same, check r+1,c-1
+//             if(r + 1 < columnLength && c - 1 >= 0){
+//                 if(board[r + 1][c - 1] === board[r][c]){
+//                     if(r + 2 < columnLength){ // r+1,c-1 same, check r+2,c-2
+//                         if(board[r + 2][c - 2] === board[r][c]){
+//                             return board[r][c]; //r, r-1, r-2 same
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+//     else if(r + 1 < columnLength && c - 1 >= 0){ // if the key is at the last position, check r+1,c-1 and r+2,c-2
+//         if(board[r + 1][c - 1] === board[r][c]){
+//             if(r + 2 < columnLength && c - 2 >= 0){
+//                 if(board[r + 2][c - 2] === board[r][c]){
+//                 return board[r][c];
+//                 }
+//             }
+//         }
+//     }
+
+    
+//     //Left top oblique
+//     if(r + 1 < columnLength && c + 1 < rowLength){
+//         if(board[r + 1][c + 1] === board[r][c]){ // r+1,c+1 same as r,c
+//             if(r + 2 < columnLength && c + 2 < rowLength){
+//                 if(board[r + 2][c + 2] === board[r][c]){
+//                     return board[r][c]; //if r+1,c+1 and r+2,c+2 and r,c same
+//                 }
+//                 else{ //if r+1,c+1 same, r+2,c+2 not, check r-1,c-1
+//                     if(r - 1 >= 0 && c - 1 >= 0){
+//                         if(board[r - 1][c - 1] === board[r][c]){
+//                             return board[r][c];
+//                         }
+//                     }
+//                 }
+//             }
+//             else if(r - 1 >= 0 && c - 1 >= 0){ // if the key is at second last position, and r+1,c+1 same, then check r-1,c-1
+//                 if(board[r - 1][c - 1] === board[r][c]){
+//                     return board[r][c]
+//                 }
+//             }
+//         }
+//         else{ //r+1,c+1 not same, check r-1,c-1
+//             if(r - 1 >= 0 && c - 1 >= 0){
+//                 if(board[r - 1][c - 1] === board[r][c]){
+//                     if(r - 2 >= 0){ // r-1,c-1 same, check r-2,c-2
+//                         if(board[r - 2][c - 2] === board[r][c]){
+//                             return board[r][c]; //r, r-1, r-2 same
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
+//     else if(r - 1 >= 0 && c - 1 >= 0){ // if the key is at the last position, check r-1,c-1 and r-2,c-2
+//         if(board[r - 1][c - 1] === board[r][c]){
+//             if(r - 2 >= 0 && c - 2 >= 0){
+//                 if(board[r - 2][c - 2] === board[r][c]){
+//                     return board[r][c];
+//                 }
+//             }
+//         }
+//     }
+// }
 
 
 
