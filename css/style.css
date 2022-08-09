@@ -73,6 +73,7 @@
     height: 17vh;
     margin: 0 auto;
     justify-content: center;
+    /* text-align: center; */
 }
 
 .zeroRow div,
@@ -81,6 +82,10 @@
 {
     width: 30%;
     border: 3px solid rgb(58, 55, 55);
+    font-size: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     /* height: 32%; */
     /* margin: 0; */
 }
