@@ -39,17 +39,39 @@
 }
 
 .thirdLine div{
-    border: 1px solid rgb(58, 55, 55);
+    /* border: 1px solid green; */
+    width: 15%;
+    height: 120px;
+    margin: 0 18px;
     font-size: 18px;
     font-weight: 800;
 }
 
-.thirdLine div{
-    /* border: 1px solid green; */
-    width: 12%;
-    height: 120px;
-    margin: 0 15px;
+#pOne,
+#pTwo
+{
+    border: 1px solid rgb(58, 55, 55);
+    background-color: #e4e6e8;
+    /* background-color: #b5363d; */
+    /* background-color: #4577a2; */
+
 }
+
+#pOne{
+    border: 1px solid rgb(58, 55, 55);
+    background-color: #b5363d;
+    color: white;
+}
+
+
+
+#p1Win,
+#fair,
+#p2Win
+{
+    opacity: 0;
+}
+
 
 /* forthLine: for rounds, player 1 & 2 winning times */
 

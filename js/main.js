@@ -45,17 +45,38 @@ $('.chequer').on('click', function(){
         // if isFirstPlayer = true, it means it is the first player's turn
         if(isFirstPlayer){
             isFirstPlayer = false;
-            $(this).html('&#10005');
             board[idr][idc] = 1;
             //let board[idx][idy] = 1; //cannot use let, is that because board[idx][idy] and idx,idy are in different block? But when I move down it also cannot work???????????????????????????? 
 
+            $(this).html('&#10005');
+            $('#pOne').css({
+                'background-color': '#e4e6e8',
+                'color': 'black',
+                'transition': '0.5s'
+            });
+            $('#pTwo').css({
+                'background-color': '#4577a2',
+                'color': 'white',
+                'transition': '0.5s'
+            });
             //decide if there is a winner
             key = makeDecision(idr, idc);
 
         }else {
             isFirstPlayer = true;
-            $(this).html('&#927');
             board[idr][idc] = -1;
+            
+            $(this).html('&#927');
+            $('#pOne').css({
+                'background-color': '#b5363d',
+                'color': 'white',
+                'transition': '0.5s'
+            });
+            $('#pTwo').css({
+                'background-color': '#e4e6e8',
+                'color': 'black',
+                'transition': '0.5s'
+            });
 
             key = makeDecision(idr, idc);
 
@@ -72,21 +93,50 @@ $('.chequer').on('click', function(){
 
     if(isGameFair === 3 && typeof(key) !== 'number'){
         console.log('Fair Game!')
+
+        //show fair game label
+        $('#fair').css('opacity', '1');
+
+        //both turn grey
+        $('#pOne').css({
+            'background-color': '#e4e6e8',
+            'color': 'black',
+            'transition': '0.5s'
+        });
+        $('#pTwo').css({
+            'background-color': '#e4e6e8',
+            'color': 'black',
+            'transition': '0.5s'
+        });
+
     }
 
 
     //check if player1 or player2 win
     if(key === 1){
         console.log('Player One Win');
-        // console.log('p1',key);
+        $('#p1Win').css('opacity', '1');
+        $('#pOne').css({
+            'background-color': '#b5363d',
+            'color': 'white'
+        });
+        $('#pTwo').css({
+            'background-color': '#e4e6e8',
+            'color': 'black'
+        });
     }
     else if(key === -1){
         console.log('Player Two Win');
-        // console.log('p2',key);
+        $('#p2Win').css('opacity', '1');
+        $('#pOne').css({
+            'background-color': '#e4e6e8',
+            'color': 'black'
+        });
+        $('#pTwo').css({
+            'background-color': '#4577a2',
+            'color': 'white'
+        });
     }
-
-
-
 
 });
 
@@ -106,6 +156,22 @@ $('#reset').on('click', function(){
     for (let i = 0; i < board.length; i++){
         board[i] = new Array(3).fill(0);
     }
+
+    //clear Winner or fair label
+    $('#fair').css('opacity', '0');
+    $('#p1Win').css('opacity', '0');
+    $('#p2Win').css('opacity', '0');
+
+    //change the color to the original state
+    $('#pOne').css({
+        'background-color': '#b5363d',
+        'color': 'white'
+    });
+    $('#pTwo').css({
+        'background-color': '#e4e6e8',
+        'color': 'black'
+    });
+
 });
 
 
