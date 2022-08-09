@@ -16,11 +16,14 @@ Use semantic markup for HTML and CSS (adhere to best practices)
 
 8/8/2022
 HTML & CSS
-* The corner of the 1st line: Restart and choose the board size
+* The corner of the 1st line: 
+    Restart this round
+    Restart whole game
+    Choose the board size
 * The 2nd line: Game Name at the very top
 * The 3rd line: Set two players box and information
 * Assign two players the symbol 
-    (will upgrade like customize tokens, names, pictures in the next version) 
+    (will upgrade like customize tokens, names, pictures in the next version) (find some graphs to fill in)
     (hover effects when player choose their profile in the next version)
     (win animation in the next version)
 * Set a box beside each player symbol, in the future who wins it will shows 'win' beside the player name ()

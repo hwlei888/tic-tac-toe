@@ -113,12 +113,49 @@
 }
 
 
-/* sixthLine: for showing which one's turn */
+/* sixthLine: for showing how many rounds */
 
 .sixthLine{
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.sixthLine div{
     text-align: center;
-    height: 50px;
+    font-size: 26px;
+    font-weight: 800;
+    margin: 5px;
+}
+
+/* seventhLine: for showing player 1 & 2 winning times & tie times */
+.seventhLine{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.seventhLineBlock{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 23px;
+    font-weight: 800;
+    margin: 10px 30px;
+}
+
+.seventhLineBlock div{
+    text-align: center;
+    margin: 0 7px;
+}
+
+#p1WinNo,
+#tieNo,
+#p2WinNo
+{
+    opacity: 0;
 }
 
 

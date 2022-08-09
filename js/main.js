@@ -17,7 +17,6 @@ let board = [
     [0, 0, 0]
 ];
 
-
 //Build a 3 * 3 array with 0
 // [
 //     c0, c1, c2
@@ -28,7 +27,12 @@ let board = [
 
 let isFirstPlayer = true;
 let key;
+let rounds = 1;
+let playerOneWinNo = 0;
+let playerTwoWinNo = 0;
+let tieNo = 0;
 
+/* ------------------------------------------------------------------------------------ */
 
 $('.chequer').on('click', function(){
     
@@ -37,7 +41,7 @@ $('.chequer').on('click', function(){
     const idr = parseInt(id[1]);
     const idc = parseInt(id[3]);
 
-    //if no value in that div
+    //if no value in that div, and game not finish
     if($(this).html() === '' && typeof(key) !== 'number'){
         
         console.log('1st',key)
@@ -48,7 +52,10 @@ $('.chequer').on('click', function(){
             board[idr][idc] = 1;
             //let board[idx][idy] = 1; //cannot use let, is that because board[idx][idy] and idx,idy are in different block? But when I move down it also cannot work???????????????????????????? 
 
+            //write html in the clicked div box
             $(this).html('&#10005');
+
+            //change player color to show who is the next one
             $('#pOne').css({
                 'background-color': '#e4e6e8',
                 'color': 'black',
@@ -59,6 +66,7 @@ $('.chequer').on('click', function(){
                 'color': 'white',
                 'transition': '0.5s'
             });
+
             //decide if there is a winner
             key = makeDecision(idr, idc);
 
@@ -66,7 +74,10 @@ $('.chequer').on('click', function(){
             isFirstPlayer = true;
             board[idr][idc] = -1;
             
+            //write html in the clicked div box
             $(this).html('&#927');
+
+            //change player color to show who is the next one
             $('#pOne').css({
                 'background-color': '#b5363d',
                 'color': 'white',
@@ -83,6 +94,10 @@ $('.chequer').on('click', function(){
         }
     }
     
+
+
+/* ------------------------------------------------------------------------------------ */
+    //Fair Game
     //loop around the whole array, if no 0 inside and key is not a number, then the game is fair
     let isGameFair = 0;
     for (let i = 0; i < board.length; i++){
@@ -92,7 +107,7 @@ $('.chequer').on('click', function(){
     }
 
     if(isGameFair === 3 && typeof(key) !== 'number'){
-        console.log('Fair Game!')
+        console.log('Fair Game!'); //for check
 
         //show fair game label
         $('#fair').css('opacity', '1');
@@ -109,12 +124,26 @@ $('.chequer').on('click', function(){
             'transition': '0.5s'
         });
 
+        //fair game time + 1
+        tieNo += 1;
+        $('#tieNo').html(`${tieNo}`);
+        $('#tieNo').css('opacity', '1');
+
+        //number of rounds + 1
+        rounds += 1;     
+        
+        //set key === number but not 1 or -1
+        key = 0;
     }
 
 
+
+/* ------------------------------------------------------------------------------------ */
     //check if player1 or player2 win
     if(key === 1){
-        console.log('Player One Win');
+        console.log('Player One Win'); //for check
+
+        //pop up you win label, change winner color
         $('#p1Win').css('opacity', '1');
         $('#pOne').css({
             'background-color': '#b5363d',
@@ -124,9 +153,23 @@ $('.chequer').on('click', function(){
             'background-color': '#e4e6e8',
             'color': 'black'
         });
+        
+        //set key !== 1
+        key = 0;
+
+        //Player One win time + 1
+        playerOneWinNo += 1;
+        $('#p1WinNo').html(`${playerOneWinNo}`);
+        $('#p1WinNo').css('opacity', '1');
+
+        //number of rounds + 1
+        rounds += 1;
+
     }
     else if(key === -1){
-        console.log('Player Two Win');
+        console.log('Player Two Win'); //for check
+
+        //pop up you win label
         $('#p2Win').css('opacity', '1');
         $('#pOne').css({
             'background-color': '#e4e6e8',
@@ -136,11 +179,26 @@ $('.chequer').on('click', function(){
             'background-color': '#4577a2',
             'color': 'white'
         });
-    }
 
+        //set key !== -1
+        key = 0;
+        
+        //Player Two win time + 1
+        playerTwoWinNo += 1;
+        $('#p2WinNo').html(`${playerTwoWinNo}`);
+        $('#p2WinNo').css('opacity', '1');
+    
+        //number of rounds + 1
+        rounds += 1;
+
+    }
+    
 });
 
 
+
+
+/* ------------------------------------------------------------------------------------ */
 //if click the restart button, will clear the board
 $('#reset').on('click', function(){
     $('.chequer').each(function(){
@@ -171,6 +229,9 @@ $('#reset').on('click', function(){
         'background-color': '#e4e6e8',
         'color': 'black'
     });
+
+    //show the number of rounds
+    $('#roundNo').html(`${rounds}`);
 
 });
 

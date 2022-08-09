@@ -50,7 +50,7 @@
             </div>
         </div>
     
-        <!-- for rounds, player 1 & 2 winning times -->
+        <!-- for rounds, player 1 & 2 winning times (maybe next version) -->
         <div class="forthLine"></div>
         
         <!-- 3 * 3 board -->
@@ -74,8 +74,32 @@
             </div>
         </div>
             
-    <!-- for showing which one's turn -->
-        <div class="sixthLine"></div>
+        <!-- for showing how many rounds -->
+        <div class="sixthLine">
+            <div id="sixLineRounds">Rounds:</div>
+
+            <div id="roundNo">1</div>
+        </div>
+
+        <!-- for showing player 1 & 2 winning times & tie times -->
+        <div class="seventhLine">
+
+            <div class="seventhLineBlock">
+                <div>Player One:</div>
+                <div id="p1WinNo">0</div>
+            </div>
+            
+            <div class="seventhLineBlock">
+                <div>Tie:</div>
+                <div id="tieNo">0</div>
+            </div>
+            
+            <div class="seventhLineBlock">
+                <div>Player Two:</div>
+                <div id="p2WinNo">0</div>
+            </div>
+
+
     </div>
 
     <script src="js/jquery.js"></script>
