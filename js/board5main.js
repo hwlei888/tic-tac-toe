@@ -11,11 +11,10 @@ console.log(`Welcome to Lei's Tic Tac Toe Game!`);
 // }
 // why in console, board == board3 is false????????????????????
 
-let board = [
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0]
-];
+let board = new Array(5);
+for (let i = 0; i < board.length; i++){
+    board[i] = new Array(5).fill(0);
+}
 
 //Build a 3 * 3 array with 0
 // [
@@ -43,8 +42,6 @@ $('.chequer').on('click', function(){
 
     //if no value in that div, and game not finish
     if($(this).html() === '' && typeof(key) !== 'number'){
-        
-        console.log('1st',key)
 
         // if isFirstPlayer = true, it means it is the first player's turn
         if(isFirstPlayer){
@@ -106,7 +103,7 @@ $('.chequer').on('click', function(){
         }
     }
 
-    if(isGameFair === 3 && typeof(key) !== 'number'){
+    if(isGameFair === 5 && typeof(key) !== 'number'){
         console.log('Fair Game!'); //for check
 
         //show fair game label
@@ -211,9 +208,9 @@ $('#reset').on('click', function(){
     key = '';
 
     //clear the board array
-    board = new Array(3);
+    board = new Array(5);
     for (let i = 0; i < board.length; i++){
-        board[i] = new Array(3).fill(0);
+        board[i] = new Array(5).fill(0);
     }
 
     //clear Winner or fair label
@@ -249,9 +246,9 @@ $('#restartGame').on('click', function(){
     key = '';
 
     //clear the board array
-    board = new Array(3);
+    board = new Array(5);
     for (let i = 0; i < board.length; i++){
-        board[i] = new Array(3).fill(0);
+        board[i] = new Array(5).fill(0);
     }
 
     //clear Winner or fair label
