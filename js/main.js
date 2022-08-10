@@ -45,6 +45,9 @@ let playerOneWinNo = 0;
 let playerTwoWinNo = 0;
 let tieNo = 0;
 
+//when fresh the webpage, back to default X and O
+$('#dropdownOne').val('symbolX');
+$('#dropdownTwo').val('symbolO');
 
 /* ------------------------------------------------------------------------------------ */
 
@@ -324,13 +327,13 @@ $('#restartGame').on('click', function(){
     //change chequer to default X and O, clear chequer background
     $('.pOneProfile').css('background-image', 'none');
     $('.pOneProfile p').css('opacity', '1');
-    $('#dropdownOne').val('');
+    $('#dropdownOne').val('symbolX');
     chequerHTMLOne = '&#10005';
     chequerUrlOne = 'none';
 
     $('.pTwoProfile').css('background-image', 'none');
     $('.pTwoProfile p').css('opacity', '1');
-    $('#dropdownTwo').val('');
+    $('#dropdownTwo').val('symbolO');
     chequerHTMLTwo = '&#927';
     chequerUrlTwo = 'none';
 
