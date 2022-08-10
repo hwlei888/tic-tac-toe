@@ -118,6 +118,19 @@ JS
 
 
 
+In version 2
+build a 3 * 3 board with JavaScript (then 6 * 6)
+use the nested for loop to create rows and columns
+create 3 row divs for putting the unit
+write the rows and columns info in data-row and data-column use .append()
+put same row different columns into a row div
+write CSS to make the board
+when want the row and column data, 
+use $(this).attr('data-row') or $(this).attr('column-row') to get the number
+
+
+
+
 
 
 
