@@ -6,6 +6,8 @@ const harryUrl = "url('graph/harry.png')"; //why not ../graph???????????????
 const malfoyUrl = "url('graph/malfoy.png')";
 const narutoUrl = "url('graph/naruto.png')";
 const sasukeUrl = "url('graph/sasuke.png')";
+const ironmanUrl = "url('graph/ironman.png')";
+const captainUrl = "url('graph/captain.png')";
 
 
 /* ------------------------------------------------------------------------------------ */
@@ -188,6 +190,12 @@ $('#dropdownOne').on('change', function(){
         chequerUrlOne = narutoUrl;
         chequerHTMLOne = '';
     }
+    else if($(this).val() === 'ironman'){ 
+        $('.pOneProfile').css('background-image', ironmanUrl);
+        $('.pOneProfile p').css('opacity', '0');
+        chequerUrlOne = ironmanUrl;
+        chequerHTMLOne = '';
+    }
     else{//default X or O
         //change back to default
         $('.pOneProfile').css('background-image', 'none');
@@ -211,6 +219,12 @@ $('#dropdownTwo').on('change', function(){
         $('.pTwoProfile').css('background-image', sasukeUrl);
         $('.pTwoProfile p').css('opacity', '0');
         chequerUrlTwo = sasukeUrl;
+        chequerHTMLTwo = '';
+    }   
+    else if($(this).val() === 'captain'){
+        $('.pTwoProfile').css('background-image', captainUrl);
+        $('.pTwoProfile p').css('opacity', '0');
+        chequerUrlTwo = captainUrl;
         chequerHTMLTwo = '';
     }   
     else{//default
