@@ -1,6 +1,7 @@
 
 console.log(`Welcome to Lei's Tic Tac Toe Game!`);
 
+
 // let board1 = Array(3).fill(Array(3).fill(0));//every line is the same??????
 
 // let board2 = Array.from(Array(3), item => new Array(3).fill(0));//why in console, board == board2 is false????????????????????
@@ -44,13 +45,16 @@ $('.chequer').on('click', function(){
     //if no value in that div, and game not finish
     if($(this).html() === '' && typeof(key) !== 'number'){
         
-        console.log('1st',key)
+        // console.log('1st',key)//for check
 
         // if isFirstPlayer = true, it means it is the first player's turn
         if(isFirstPlayer){
             isFirstPlayer = false;
             board[idr][idc] = 1;
-            //let board[idx][idy] = 1; //cannot use let, is that because board[idx][idy] and idx,idy are in different block? But when I move down it also cannot work???????????????????????????? 
+
+            // varry = board[idr][idc]; 
+            
+            //cannot use let, is that because board[idx][idy] and idx,idy are in different block? But when I move down it also cannot work???????????????????????????? 
 
             //write html in the clicked div box
             $(this).html('&#10005');
@@ -391,10 +395,8 @@ const makeDecision = function(r, c){
             else if(board[r][c] === -1){
                 let count = 0;
                 for (let k = 0; k < 3; k++){
-                    if(r - k >= 0){
-                        if(r + k < columnLength){
-                            count += board[r + k][c + k];
-                        }
+                    if(r + k < columnLength){
+                        count += board[r + k][c + k];
                     }
                 }
                 if(count === -3){ //3 continouns -1

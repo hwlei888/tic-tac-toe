@@ -43,7 +43,12 @@
     text-align: center;
 }
 
-.thirdLine div{
+.thirdLine #p1Win,
+.thirdLine #pOne,
+.thirdLine #fair,
+.thirdLine #pTwo,
+.thirdLine #p2Win
+{
     /* border: 1px solid green; */
     width: 15%;
     height: 120px;
@@ -59,16 +64,14 @@
     background-color: #e4e6e8;
     /* background-color: #b5363d; */
     /* background-color: #4577a2; */
-
 }
 
 #pOne{
     border: 1px solid rgb(58, 55, 55);
     background-color: #b5363d;
     color: white;
+    position: relative;
 }
-
-
 
 #p1Win,
 #fair,
@@ -76,6 +79,26 @@
 {
     opacity: 0;
 }
+
+/* here////////////////////////////////////////////////////// */
+
+.pOneProfile,
+.pTwoProfile
+{
+    /* position: relative; */
+    height: 50%;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.dropdownBox{
+    position: relative;
+    height: 10%;
+    z-index: 10;
+    width: 100%;
+}
+
+
 
 
 /* forthLine: for rounds, player 1 & 2 winning times */

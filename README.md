@@ -23,16 +23,25 @@ HTML & CSS
 * The 2nd line: Game Name at the very top
 * The 3rd line: Set two players box and information
 * Assign two players the symbol 
-    (will upgrade like customize tokens, names, pictures in the next version) (find some graphs to fill in)
+    (will upgrade like customize tokens, names, pictures in the next version) 
+    1. there are html and graph
+    2. hide html and change the src of graph
+    3. remember to change the js, where your decision is if there is html
+
+    $('#dropdownOne').on('change', function(){
+    if($(this).val() === 'harry'){
+        console.log('choose harry');
+    }
+})
+    (find some graphs to fill in)
     (hover effects when player choose their profile in the next version)
     (win animation in the next version)
 * Set a box beside each player symbol, in the future who wins it will shows 'win' beside the player name ()
 * Set a box between two players, if neither wins, show a draw in the middle box
-* The 4th line: shows multiple game rounds with a win counter (Next version)
+* The 4th line: selec which profile
 * The 5th line: Build a 3 * 3 game GUI
-* The 6th line: Draw a box shows which one's turn (Next version) (or hover)
+* The 6th line: shows multiple game rounds with a win counter (Next version)
 * Larger Board (next version)
-* 
 
 JS
 * Reset Button to reset the whole game

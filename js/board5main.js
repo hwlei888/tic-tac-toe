@@ -396,10 +396,8 @@ const makeDecision = function(r, c){
             else if(board[r][c] === -1){
                 let count = 0;
                 for (let k = 0; k < 3; k++){
-                    if(r - k >= 0){
-                        if(r + k < columnLength){
-                            count += board[r + k][c + k];
-                        }
+                    if(r + k < columnLength){
+                        count += board[r + k][c + k];
                     }
                 }
                 if(count === -3){ //3 continouns -1
