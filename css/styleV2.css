@@ -196,6 +196,45 @@
     background-size: contain;
 }
 
+/************ fifthLine: 8 * 8 board ************/
+
+.eightLineBoard{
+    /* display: block;  */
+    display: none;
+}
+
+.eightLineBoard .boardEightRow0,
+.eightLineBoard .boardEightRow1,
+.eightLineBoard .boardEightRow2,
+.eightLineBoard .boardEightRow3,
+.eightLineBoard .boardEightRow4,
+.eightLineBoard .boardEightRow5,
+.eightLineBoard .boardEightRow6,
+.eightLineBoard .boardEightRow7
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 53vh;
+    height: 6.5vh;
+    margin: 0 auto;
+    justify-content: center;
+    /* text-align: center; */
+}
+
+.eightLineBoard .chequer
+{
+    width: 15%;
+    border: 3px solid rgb(58, 55, 55);
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 32%; */
+    /* margin: 0; */
+    background-size: contain;
+}
+
 
 /************ sixthLine: for showing how many rounds ************/
 

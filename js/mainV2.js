@@ -40,6 +40,12 @@ for (let i = 0; i < boardFive.length; i++){
     boardFive[i] = new Array(boardFive.length).fill(0);
 }
 
+// Build 8 * 8 board
+let boardEight = new Array(8);
+for (let i = 0; i < boardEight.length; i++){
+    boardEight[i] = new Array(boardEight.length).fill(0);
+}
+
 
 /* ------------------------------------------------------------------------------------ */
 //global variables
@@ -103,6 +109,26 @@ for (let row = 0; row < boardFive.length; row++){
     }
 }
 
+//Build a 8 * 8 board
+//build 8 rows with class row0 - row7
+for (let i = 0; i < boardEight.length; i++){
+    $('<div></div>').addClass(`boardEightRow${i}`)
+                    .appendTo('.eightLineBoard')
+}
+
+//build 64 divs with rows and columns
+for (let row = 0; row < boardEight.length; row++){
+    for (let column = 0; column < boardEight.length; column++){
+        $('<div></div>').addClass('chequer')
+                        .attr({
+                            'data-row': `${row}`,
+                            'data-column': `${column}`
+                        })
+                        .appendTo($(`.boardEightRow${row}`));
+    }
+}
+
+
 /* ------------------------------------------------------------------------------------ */
 //choose board size
 
@@ -116,6 +142,7 @@ $('#dropdownBoardSize').on('change', function(){
         $('.threeLineBoard').css('display', 'block'); 
         // none display other board
         $('.fiveLineBoard').css('display', 'none');
+        $('.eightLineBoard').css('display', 'none');
         board = boardThree;
     }
     else if($(this).val() === 'boardSize5'){ 
@@ -125,7 +152,18 @@ $('#dropdownBoardSize').on('change', function(){
         $('.fiveLineBoard').css('display', 'block'); 
         // none display other board
         $('.threeLineBoard').css('display', 'none');
+        $('.eightLineBoard').css('display', 'none');
         board = boardFive;
+    }
+    else if($(this).val() === 'boardSize8'){ 
+
+        nextRound();
+        // display 8*8 board
+        $('.eightLineBoard').css('display', 'block'); 
+        // none display other board
+        $('.threeLineBoard').css('display', 'none');
+        $('.fiveLineBoard').css('display', 'none');
+        board = boardEight;
     }
 }) 
 
@@ -182,7 +220,6 @@ $('#dropdownTwo').on('change', function(){
         chequerHTMLTwo = '&#927';
     }
 })
-
 
 
 
@@ -264,7 +301,7 @@ $('.chequer').on('click', function(){
         }
     }
 
-    if(isGameFair === 3 && typeof(key) !== 'number'){
+    if(isGameFair === board.length && typeof(key) !== 'number'){
         console.log('Fair Game!'); //for check
 
         //show fair game label
@@ -370,6 +407,7 @@ const nextRound = function(){
     key = '';
 
     //clear the board array
+    //need to clear all of the board because change board size will also use this function
     boardThree = new Array(3);
     for (let i = 0; i < boardThree.length; i++){
         boardThree[i] = new Array(boardThree.length).fill(0);
@@ -378,6 +416,11 @@ const nextRound = function(){
     boardFive = new Array(5);
     for (let i = 0; i < boardFive.length; i++){
         boardFive[i] = new Array(boardFive.length).fill(0);
+    }
+
+    boardEight = new Array(8);
+    for (let i = 0; i < boardEight.length; i++){
+        boardEight[i] = new Array(boardEight.length).fill(0);
     }
 
     board = new Array(board.length);
@@ -438,6 +481,7 @@ $('#restartGame').on('click', function(){
     $('#dropdownBoardSize').val('boardSize3');
     $('.threeLineBoard').css('display', 'block'); 
     $('.fiveLineBoard').css('display', 'none');
+    $('.eightLineBoard').css('display', 'none');
 
     //clear the board array
     boardThree = new Array(3);
@@ -450,7 +494,12 @@ $('#restartGame').on('click', function(){
         boardFive[i] = new Array(boardFive.length).fill(0);
     }
 
-    board = boardThree;
+    boardEight = new Array(8);
+    for (let i = 0; i < boardEight.length; i++){
+        boardEight[i] = new Array(boardEight.length).fill(0);
+    }
+
+    board = boardThree; //3 * 3 size is default
 
 
     isFirstPlayer = true; //isFirstPlayer back to ture, so as to the next one after reset is the first player
