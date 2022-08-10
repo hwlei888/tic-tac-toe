@@ -23,7 +23,7 @@ HTML & CSS
 * The 2nd line: Game Name at the very top
 * The 3rd line: Set two players box and information
 * Assign two players the symbol 
-    # (will upgrade like customize tokens, names, pictures in the next version) 
+    (will upgrade like customize tokens, names, pictures in the next version) 
     1. there are html and graph
     2. hide html or display none for graph, and change the src of graph
     3. remember to change the js, where your decision is if there is html
@@ -33,7 +33,7 @@ HTML & CSS
         console.log('choose harry');
     }
 })
-   # (find some graphs to fill in)
+   (find some graphs to fill in)
    (hover effects when player choose their profile in the next version)
    # (win animation in the next version)
 * Set a box beside each player symbol, in the future who wins it will shows 'win' beside the player name ()
@@ -113,7 +113,7 @@ JS
 
 * # When one win, there is something beside, start from a YOU WIN logo (Animation in the next version)
 * Three in a line then one win
-* # Player One can choose its symbol and write name(Next version)
+* Player One can choose its symbol (Next version)
 * Larger Board (next version)
 
 
