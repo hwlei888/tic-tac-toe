@@ -60,8 +60,10 @@
 #pOne,
 #pTwo
 {
+    position: relative;
     border: 1px solid rgb(58, 55, 55);
     background-color: #e4e6e8;
+    text-align: center;
     /* background-color: #b5363d; */
     /* background-color: #4577a2; */
 }
@@ -70,7 +72,6 @@
     border: 1px solid rgb(58, 55, 55);
     background-color: #b5363d;
     color: white;
-    position: relative;
 }
 
 #p1Win,
@@ -80,21 +81,36 @@
     opacity: 0;
 }
 
-/* here////////////////////////////////////////////////////// */
 
 .pOneProfile,
 .pTwoProfile
 {
-    /* position: relative; */
+    position: relative;
     height: 50%;
-    width: 100%;
+    width: 9vh;
     margin-bottom: 10px;
+    margin: 10px auto;
+    /* background-image: url('../graph/sasuke.png'); */
+    /* background-image: none; */
+    background-size: contain;
+    background-repeat: no-repeat;
+    text-align: center;
 }
 
+.pOneProfile p,
+.pTwoProfile p
+{
+    position: relative;
+    top: 20%;
+    /* opacity: 0; */
+}
+
+/* z-index in case the select box is covered by other block */
+/* to use z-index, to make sure position is not static */
 .dropdownBox{
     position: relative;
-    height: 10%;
-    z-index: 10;
+    /* height: 20%; */
+    z-index: 30;
     width: 100%;
 }
 
@@ -126,10 +142,7 @@
     /* text-align: center; */
 }
 
-.zeroRow div,
-.firstRow div,
-.secondRow div
-{
+.chequer{
     width: 30%;
     border: 3px solid rgb(58, 55, 55);
     font-size: 100px;
@@ -138,6 +151,8 @@
     align-items: center;
     /* height: 32%; */
     /* margin: 0; */
+    /* background-image: none; */
+    background-size: contain;
 }
 
 

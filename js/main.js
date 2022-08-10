@@ -1,16 +1,24 @@
 
 console.log(`Welcome to Lei's Tic Tac Toe Game!`);
 
+//Profile Background Url
+const harryUrl = "url('graph/harry.png')"; //why not ../graph???????????????
+const malfoyUrl = "url('graph/malfoy.png')";
+const narutoUrl = "url('graph/naruto.png')";
+const sasukeUrl = "url('graph/sasuke.png')";
 
-// let board1 = Array(3).fill(Array(3).fill(0));//every line is the same??????
 
-// let board2 = Array.from(Array(3), item => new Array(3).fill(0));//why in console, board == board2 is false????????????????????
+
+//different ways to build a new board
+
+// let board1 = Array(3).fill(Array(3).fill(0));//don't use, it will change all three arrays
+
+// let board2 = Array.from(Array(3), item => new Array(3).fill(0));
 
 // let board3 = new Array(3);
 // for (let i = 0; i < board3.length; i++){
 //     board3[i] = new Array(3).fill(0);
 // }
-// why in console, board == board3 is false????????????????????
 
 let board = [
     [0, 0, 0],
@@ -28,10 +36,71 @@ let board = [
 
 let isFirstPlayer = true;
 let key;
+let chequerUrlOne; //chequer background
+let chequerHTMLOne = '&#10005'; //chequer html X
+let chequerUrlTwo; //chequer background
+let chequerHTMLTwo = '&#927'; //chequer html O
 let rounds = 1;
 let playerOneWinNo = 0;
 let playerTwoWinNo = 0;
 let tieNo = 0;
+
+
+/* ------------------------------------------------------------------------------------ */
+
+//choose other profiles, set X and O as default
+$('#dropdownOne').on('change', function(){
+    //if choose harry profile
+    if($(this).val() === 'harry'){ 
+        //change profile background and hide X or O
+        $('.pOneProfile').css('background-image', harryUrl);
+        $('.pOneProfile p').css('opacity', '0');
+        //change chequer background and no X or O
+        chequerUrlOne = harryUrl;
+        chequerHTMLOne = '';
+    }
+    else if($(this).val() === 'naruto'){ 
+        $('.pOneProfile').css('background-image', narutoUrl);
+        $('.pOneProfile p').css('opacity', '0');
+        chequerUrlOne = narutoUrl;
+        chequerHTMLOne = '';
+    }
+    else{//default X or O
+        //change back to default
+        $('.pOneProfile').css('background-image', 'none');
+        $('.pOneProfile p').css('opacity', '1');
+        chequerUrlOne = 'none';
+        chequerHTMLOne = '&#10005';
+    }
+}) 
+
+
+$('#dropdownTwo').on('change', function(){
+    //if choose harry profile
+    if($(this).val() === 'malfoy'){ 
+        // console.log('choose harry'); //for check
+        $('.pTwoProfile').css('background-image', malfoyUrl);
+        $('.pTwoProfile p').css('opacity', '0');
+        chequerUrlTwo = malfoyUrl;
+        chequerHTMLTwo = '';
+    }
+    else if($(this).val() === 'sasuke'){
+        $('.pTwoProfile').css('background-image', sasukeUrl);
+        $('.pTwoProfile p').css('opacity', '0');
+        chequerUrlTwo = sasukeUrl;
+        chequerHTMLTwo = '';
+    }   
+    else{//default
+        $('.pTwoProfile').css('background-image', 'none');
+        $('.pTwoProfile p').css('opacity', '1');
+        chequerUrlTwo = 'none';
+        chequerHTMLTwo = '&#927';
+    }
+})
+
+
+
+
 
 /* ------------------------------------------------------------------------------------ */
 
@@ -43,7 +112,9 @@ $('.chequer').on('click', function(){
     const idc = parseInt(id[3]);
 
     //if no value in that div, and game not finish
-    if($(this).html() === '' && typeof(key) !== 'number'){
+    // if($(this).html() === '' && typeof(key) !== 'number'){
+    //if value in that related matrix is 0, and game not finish
+    if(board[idr][idc] === 0 && typeof(key) !== 'number'){
         
         // console.log('1st',key)//for check
 
@@ -52,12 +123,9 @@ $('.chequer').on('click', function(){
             isFirstPlayer = false;
             board[idr][idc] = 1;
 
-            // varry = board[idr][idc]; 
-            
-            //cannot use let, is that because board[idx][idy] and idx,idy are in different block? But when I move down it also cannot work???????????????????????????? 
-
-            //write html in the clicked div box
-            $(this).html('&#10005');
+            //write html or show background in the clicked div box
+            $(this).html(chequerHTMLOne);
+            $(this).css('background-image', chequerUrlOne);
 
             //change player color to show who is the next one
             $('#pOne').css({
@@ -74,12 +142,13 @@ $('.chequer').on('click', function(){
             //decide if there is a winner
             key = makeDecision(idr, idc);
 
-        }else {
+        }else { //another player
             isFirstPlayer = true;
             board[idr][idc] = -1;
             
-            //write html in the clicked div box
-            $(this).html('&#927');
+            //write html or show background in the clicked div box
+            $(this).html(chequerHTMLTwo);
+            $(this).css('background-image', chequerUrlTwo);
 
             //change player color to show who is the next one
             $('#pOne').css({
@@ -207,7 +276,8 @@ $('.chequer').on('click', function(){
 //if click the restart button, will clear the board
 $('#reset').on('click', function(){
     $('.chequer').each(function(){
-        $(this).html('');
+        $(this).html('')
+               .css('background-image','none');        
     });
     isFirstPlayer = true; //isFirstPlayer back to ture, so as to the next one after reset is the first player
 
@@ -245,8 +315,26 @@ $('#reset').on('click', function(){
 //if click the restart button, will clear the board
 $('#restartGame').on('click', function(){
     $('.chequer').each(function(){
-        $(this).html('');
+        $(this).html('')
+               .css('background-image','none');  
     });
+
+    //profile back to default X and O, clear profile background
+    //select block back to 'select your profile'
+    //change chequer to default X and O, clear chequer background
+    $('.pOneProfile').css('background-image', 'none');
+    $('.pOneProfile p').css('opacity', '1');
+    $('#dropdownOne').val('');
+    chequerHTMLOne = '&#10005';
+    chequerUrlOne = 'none';
+
+    $('.pTwoProfile').css('background-image', 'none');
+    $('.pTwoProfile p').css('opacity', '1');
+    $('#dropdownTwo').val('');
+    chequerHTMLTwo = '&#927';
+    chequerUrlTwo = 'none';
+
+
     isFirstPlayer = true; //isFirstPlayer back to ture, so as to the next one after reset is the first player
 
     //set the type of key !== number
