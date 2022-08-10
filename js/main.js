@@ -380,7 +380,7 @@ const makeDecision = function(r, c){
             if(board[r][c] === 1){
                 let count = 0;
                 for (let k = 0; k < 3; k++){
-                    if(r + k <= columnLength - 2){
+                    if(r + k < columnLength){
                         count += board[r + k][c + k];
                     }
                 }
@@ -392,7 +392,7 @@ const makeDecision = function(r, c){
                 let count = 0;
                 for (let k = 0; k < 3; k++){
                     if(r - k >= 0){
-                        if(r + k <= columnLength - 2){
+                        if(r + k < columnLength){
                             count += board[r + k][c + k];
                         }
                     }

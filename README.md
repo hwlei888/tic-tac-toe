@@ -96,7 +96,7 @@ JS
          a) horizontal: in each row, for loop the column, start from the first one, if the value is 1 or -1, make a new variable = 0, max length is 3, column + 1 total 3 times, to see if the sum is 3 or -3, if is 3 then p1 win, if is -3 then p2 win.
                     
 6. Decide if the game is fair.
-   If  
+   If the board is full of keys and no 1 or -1 value in key. Then it's fair game
 
 
 * cannot click the same place twice (true of false?)
