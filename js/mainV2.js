@@ -37,7 +37,7 @@ let boardThree = [
 // Build 5 * 5 board
 let boardFive = new Array(5);
 for (let i = 0; i < boardFive.length; i++){
-    boardFive[i] = new Array(5).fill(0);
+    boardFive[i] = new Array(boardFive.length).fill(0);
 }
 
 
@@ -62,6 +62,8 @@ $('#dropdownTwo').val('symbolO');
 $('#dropdownBoardSize').val('boardSize3');
 
 /* ------------------------------------------------------------------------------------ */
+// Build different size board in HTML
+
 // Build a 3 * 3 board
 // build 3 rows with class row0, row1, row2
 for (let i = 0; i < boardThree.length; i++){
@@ -102,25 +104,28 @@ for (let row = 0; row < boardFive.length; row++){
 }
 
 /* ------------------------------------------------------------------------------------ */
-//choose board size with dropdown bar
+//choose board size
+
 $('#dropdownBoardSize').on('change', function(){
     //if choose 3 * 3 size
     if($(this).val() === 'boardSize3'){ 
-
-        board = boardThree;
+        
+        //Reset the old board first
+        nextRound(); 
         // display 3*3 board
         $('.threeLineBoard').css('display', 'block'); 
         // none display other board
         $('.fiveLineBoard').css('display', 'none');
-
+        board = boardThree;
     }
     else if($(this).val() === 'boardSize5'){ 
 
-        board = boardFive;
+        nextRound();
         // display 5*5 board
         $('.fiveLineBoard').css('display', 'block'); 
         // none display other board
         $('.threeLineBoard').css('display', 'none');
+        board = boardFive;
     }
 }) 
 
@@ -354,7 +359,7 @@ $('.chequer').on('click', function(){
 /* ------------------------------------------------------------------------------------ */
 // Set a new round
 //if click the next round button, will clear the board
-$('#reset').on('click', function(){
+const nextRound = function(){
     $('.chequer').each(function(){
         $(this).html('')
                .css('background-image','none');        
@@ -365,6 +370,16 @@ $('#reset').on('click', function(){
     key = '';
 
     //clear the board array
+    boardThree = new Array(3);
+    for (let i = 0; i < boardThree.length; i++){
+        boardThree[i] = new Array(boardThree.length).fill(0);
+    }
+
+    boardFive = new Array(5);
+    for (let i = 0; i < boardFive.length; i++){
+        boardFive[i] = new Array(boardFive.length).fill(0);
+    }
+
     board = new Array(board.length);
     for (let i = 0; i < board.length; i++){
         board[i] = new Array(board.length).fill(0);
@@ -388,7 +403,12 @@ $('#reset').on('click', function(){
     //show the number of rounds
     $('#roundNo').html(`${rounds}`);
 
-});
+}; //newRound()
+
+
+$('#reset').on('click', nextRound);
+
+
 
 /* ------------------------------------------------------------------------------------ */
 // Restart the whole game
@@ -420,10 +440,18 @@ $('#restartGame').on('click', function(){
     $('.fiveLineBoard').css('display', 'none');
 
     //clear the board array
-    board = new Array(3);
-    for (let i = 0; i < board.length; i++){
-        board[i] = new Array(3).fill(0);
+    boardThree = new Array(3);
+    for (let i = 0; i < boardThree.length; i++){
+        boardThree[i] = new Array(boardThree.length).fill(0);
     }
+
+    boardFive = new Array(5);
+    for (let i = 0; i < boardFive.length; i++){
+        boardFive[i] = new Array(boardFive.length).fill(0);
+    }
+
+    board = boardThree;
+
 
     isFirstPlayer = true; //isFirstPlayer back to ture, so as to the next one after reset is the first player
 

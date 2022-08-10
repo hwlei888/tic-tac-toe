@@ -193,6 +193,7 @@
     align-items: center;
     /* height: 32%; */
     /* margin: 0; */
+    background-size: contain;
 }
 
 
