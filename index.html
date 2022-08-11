@@ -19,6 +19,15 @@
             <div>
                 <button id="restartGame" type="button">Restart</button>
             </div>
+
+            <div id="boardSize">
+                <select id="dropdownBoardSize">
+                    <option value="boardSize3">3 &#10005 3 Board</option>
+                    <option value="boardSize5">5 &#10005 5 Board</option>
+                    <option value="boardSize8">8 &#10005 8 Board</option>
+                </select>
+            </div>
+
         </div>
     
         <!-- logo -->
@@ -45,6 +54,7 @@
                         <option value="symbolX">I'm &#10005</option>
                         <option value="harry">I'm Harry</option>
                         <option value="naruto">I'm Naruto</option>
+                        <option value="ironman">I'm Ironman</option>
                     </select>
                 </div>
 
@@ -67,6 +77,7 @@
                         <option value="symbolO">I'm &#927</option>
                         <option value="malfoy">I'm Malfoy</option>
                         <option value="sasuke">I'm Sasuke</option>
+                        <option value="captain">I'm Captain</option>
                     </select>
                 </div>
 
@@ -78,11 +89,18 @@
             </div>
         </div>
     
-        <!-- for rounds, player 1 & 2 winning times (maybe next version) -->
+        <!-- forthLine: for rounds, player 1 & 2 winning times (maybe next version) -->
         <div class="forthLine"></div>
         
-        <!-- 3 * 3 board -->
-        <div class="fifthLine">
+        <!-- fifthLine: 3 * 3 , 5 * 5 , 8 * 8 board -->
+
+        <div class="threeLineBoard"></div>
+
+        <div class="fiveLineBoard"></div>
+
+        <div class="eightLineBoard"></div>
+
+        <!-- <div class="fifthLine">
             <div class="zeroRow">
                 <div class="chequer" id="r0c0" ></div>
                 <div class="chequer" id="r0c1" ></div>
@@ -100,7 +118,7 @@
                 <div class="chequer" id="r2c1"></div>
                 <div class="chequer" id="r2c2"></div>
             </div>
-        </div>
+        </div> -->
             
         <!-- for showing how many rounds -->
         <div class="sixthLine">

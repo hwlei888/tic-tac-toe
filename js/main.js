@@ -2,13 +2,15 @@
 console.log(`Welcome to Lei's Tic Tac Toe Game!`);
 
 //Profile Background Url
-const harryUrl = "url('graph/harry.png')"; //why not ../graph???????????????
-const malfoyUrl = "url('graph/malfoy.png')";
-const narutoUrl = "url('graph/naruto.png')";
-const sasukeUrl = "url('graph/sasuke.png')";
+const harryUrl = "url(graph/harry.png)";
+const malfoyUrl = "url(graph/malfoy.png)";
+const narutoUrl = "url(graph/naruto.png)";
+const sasukeUrl = "url(graph/sasuke.png)";
+const ironmanUrl = "url(graph/ironman.png)";
+const captainUrl = "url(graph/captain.png)";
 
 
-
+/* ------------------------------------------------------------------------------------ */
 //different ways to build a new board
 
 // let board1 = Array(3).fill(Array(3).fill(0));//don't use, it will change all three arrays
@@ -20,7 +22,7 @@ const sasukeUrl = "url('graph/sasuke.png')";
 //     board3[i] = new Array(3).fill(0);
 // }
 
-let board = [
+let boardThree = [
     [0, 0, 0],
     [0, 0, 0],
     [0, 0, 0]
@@ -34,6 +36,22 @@ let board = [
 // r2  [0,  0,  0] 
 // ];
 
+// Build 5 * 5 board
+let boardFive = new Array(5);
+for (let i = 0; i < boardFive.length; i++){
+    boardFive[i] = new Array(boardFive.length).fill(0);
+}
+
+// Build 8 * 8 board
+let boardEight = new Array(8);
+for (let i = 0; i < boardEight.length; i++){
+    boardEight[i] = new Array(boardEight.length).fill(0);
+}
+
+
+/* ------------------------------------------------------------------------------------ */
+//global variables
+
 let isFirstPlayer = true;
 let key;
 let chequerUrlOne; //chequer background
@@ -44,14 +62,127 @@ let rounds = 1;
 let playerOneWinNo = 0;
 let playerTwoWinNo = 0;
 let tieNo = 0;
+let board = boardThree;
 
-//when fresh the webpage, back to default X and O
+//when fresh the webpage, back to default X and O, and 3 * 3 board
 $('#dropdownOne').val('symbolX');
 $('#dropdownTwo').val('symbolO');
+$('#dropdownBoardSize').val('boardSize3');
+
+/* ------------------------------------------------------------------------------------ */
+// Build different size board in HTML
+
+// Build a 3 * 3 board
+// build 3 rows with class row0, row1, row2
+for (let i = 0; i < boardThree.length; i++){
+    $('<div></div>').addClass(`boardThreeRow${i}`)
+                    .appendTo('.threeLineBoard')
+}
+
+//build 9 divs with rows and columns
+// for (let row = 0; row < boardThree.length; row++){
+//     for (let column = 0; column < boardThree.length; column++){
+//         $('<div></div>').addClass('chequer')
+//                         .data('row', row)
+//                         .data('column', column)
+//                         .appendTo($(`.boardThreeRow${row}`));
+//     }
+// }
+
+for (let row = 0; row < boardThree.length; row++){
+    for (let column = 0; column < boardThree.length; column++){
+        $('<div></div>').addClass('chequer')
+                        .attr({
+                            'data-row': row,
+                            'data-column': column
+                        })
+        .appendTo($(`.boardThreeRow${row}`));
+    }
+}
+
+
+//Build a 5 * 5 board
+//build 5 rows with class row0 - row4
+for (let i = 0; i < boardFive.length; i++){
+    $('<div></div>').addClass(`boardFiveRow${i}`)
+                    .appendTo('.fiveLineBoard')
+}
+
+//build 25 divs with rows and columns
+for (let row = 0; row < boardFive.length; row++){
+    for (let column = 0; column < boardFive.length; column++){
+        $('<div></div>').addClass('chequer')
+                        .attr({
+                            'data-row': row,
+                            'data-column': column
+                        })
+                        .appendTo($(`.boardFiveRow${row}`));
+    }
+}
+
+//Build a 8 * 8 board
+//build 8 rows with class row0 - row7
+for (let i = 0; i < boardEight.length; i++){
+    $('<div></div>').addClass(`boardEightRow${i}`)
+                    .appendTo('.eightLineBoard')
+}
+
+//build 64 divs with rows and columns
+for (let row = 0; row < boardEight.length; row++){
+    for (let column = 0; column < boardEight.length; column++){
+        $('<div></div>').addClass('chequer')
+                        .attr({
+                            'data-row': row,
+                            'data-column': column
+                        })
+                        .appendTo($(`.boardEightRow${row}`));
+    }
+}
+
+
+/* ------------------------------------------------------------------------------------ */
+//choose board size
+
+$('#dropdownBoardSize').on('change', function(){
+    //if choose 3 * 3 size
+    if($(this).val() === 'boardSize3'){ 
+        
+        //Reset the old board first
+        nextRound(); 
+        // display 3*3 board
+        $('.threeLineBoard').css('display', 'block'); 
+        // none display other board
+        $('.fiveLineBoard').css('display', 'none');
+        $('.eightLineBoard').css('display', 'none');
+        board = boardThree;
+    }
+    else if($(this).val() === 'boardSize5'){ 
+
+        nextRound();
+        // display 5*5 board
+        $('.fiveLineBoard').css('display', 'block'); 
+        // none display other board
+        $('.threeLineBoard').css('display', 'none');
+        $('.eightLineBoard').css('display', 'none');
+        board = boardFive;
+    }
+    else if($(this).val() === 'boardSize8'){ 
+
+        nextRound();
+        // display 8*8 board
+        $('.eightLineBoard').css('display', 'block'); 
+        // none display other board
+        $('.threeLineBoard').css('display', 'none');
+        $('.fiveLineBoard').css('display', 'none');
+        board = boardEight;
+    }
+}) 
+
+
 
 /* ------------------------------------------------------------------------------------ */
 
-//choose other profiles, set X and O as default
+//choose player profiles, set X and O as default
 $('#dropdownOne').on('change', function(){
     //if choose harry profile
     if($(this).val() === 'harry'){ 
@@ -66,6 +197,12 @@ $('#dropdownOne').on('change', function(){
         $('.pOneProfile').css('background-image', narutoUrl);
         $('.pOneProfile p').css('opacity', '0');
         chequerUrlOne = narutoUrl;
+        chequerHTMLOne = '';
+    }
+    else if($(this).val() === 'ironman'){ 
+        $('.pOneProfile').css('background-image', ironmanUrl);
+        $('.pOneProfile p').css('opacity', '0');
+        chequerUrlOne = ironmanUrl;
         chequerHTMLOne = '';
     }
     else{//default X or O
@@ -93,6 +230,12 @@ $('#dropdownTwo').on('change', function(){
         chequerUrlTwo = sasukeUrl;
         chequerHTMLTwo = '';
     }   
+    else if($(this).val() === 'captain'){
+        $('.pTwoProfile').css('background-image', captainUrl);
+        $('.pTwoProfile p').css('opacity', '0');
+        chequerUrlTwo = captainUrl;
+        chequerHTMLTwo = '';
+    }   
     else{//default
         $('.pTwoProfile').css('background-image', 'none');
         $('.pTwoProfile p').css('opacity', '1');
@@ -103,16 +246,16 @@ $('#dropdownTwo').on('change', function(){
 
 
 
-
-
 /* ------------------------------------------------------------------------------------ */
 
 $('.chequer').on('click', function(){
     
-    //find the coordination x and coordination y with id
-    const id = $(this).attr('id');
-    const idr = parseInt(id[1]);
-    const idc = parseInt(id[3]);
+    //find the row and column with data
+    const idr = $(this).attr('data-row');
+    const idc = $(this).attr('data-column');
+    console.log(idr); // for check
+    console.log(typeof(idr));//for check
+    //can work when idr and idc are string??????????????????????????????????
 
     //if no value in that div, and game not finish
     // if($(this).html() === '' && typeof(key) !== 'number'){
@@ -182,7 +325,7 @@ $('.chequer').on('click', function(){
         }
     }
 
-    if(isGameFair === 3 && typeof(key) !== 'number'){
+    if(isGameFair === board.length && typeof(key) !== 'number'){
         console.log('Fair Game!'); //for check
 
         //show fair game label
@@ -276,8 +419,8 @@ $('.chequer').on('click', function(){
 
 /* ------------------------------------------------------------------------------------ */
 // Set a new round
-//if click the restart button, will clear the board
-$('#reset').on('click', function(){
+//if click the next round button, will clear the board
+const nextRound = function(){
     $('.chequer').each(function(){
         $(this).html('')
                .css('background-image','none');        
@@ -288,9 +431,25 @@ $('#reset').on('click', function(){
     key = '';
 
     //clear the board array
-    board = new Array(3);
+    //need to clear all of the board because change board size will also use this function
+    boardThree = new Array(3);
+    for (let i = 0; i < boardThree.length; i++){
+        boardThree[i] = new Array(boardThree.length).fill(0);
+    }
+
+    boardFive = new Array(5);
+    for (let i = 0; i < boardFive.length; i++){
+        boardFive[i] = new Array(boardFive.length).fill(0);
+    }
+
+    boardEight = new Array(8);
+    for (let i = 0; i < boardEight.length; i++){
+        boardEight[i] = new Array(boardEight.length).fill(0);
+    }
+
+    board = new Array(board.length);
     for (let i = 0; i < board.length; i++){
-        board[i] = new Array(3).fill(0);
+        board[i] = new Array(board.length).fill(0);
     }
 
     //clear Winner or fair label
@@ -311,7 +470,12 @@ $('#reset').on('click', function(){
     //show the number of rounds
     $('#roundNo').html(`${rounds}`);
 
-});
+}; //newRound()
+
+
+$('#reset').on('click', nextRound);
+
+
 
 /* ------------------------------------------------------------------------------------ */
 // Restart the whole game
@@ -337,17 +501,36 @@ $('#restartGame').on('click', function(){
     chequerHTMLTwo = '&#927';
     chequerUrlTwo = 'none';
 
+    //set board to default 3 * 3 board
+    $('#dropdownBoardSize').val('boardSize3');
+    $('.threeLineBoard').css('display', 'block'); 
+    $('.fiveLineBoard').css('display', 'none');
+    $('.eightLineBoard').css('display', 'none');
+
+    //clear the board array
+    boardThree = new Array(3);
+    for (let i = 0; i < boardThree.length; i++){
+        boardThree[i] = new Array(boardThree.length).fill(0);
+    }
+
+    boardFive = new Array(5);
+    for (let i = 0; i < boardFive.length; i++){
+        boardFive[i] = new Array(boardFive.length).fill(0);
+    }
+
+    boardEight = new Array(8);
+    for (let i = 0; i < boardEight.length; i++){
+        boardEight[i] = new Array(boardEight.length).fill(0);
+    }
+
+    board = boardThree; //3 * 3 size is default
+
 
     isFirstPlayer = true; //isFirstPlayer back to ture, so as to the next one after reset is the first player
 
     //set the type of key !== number
     key = '';
 
-    //clear the board array
-    board = new Array(3);
-    for (let i = 0; i < board.length; i++){
-        board[i] = new Array(3).fill(0);
-    }
 
     //clear Winner or fair label
     $('#fair').css('opacity', '0');
