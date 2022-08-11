@@ -232,6 +232,11 @@ $('#dropdownOne').on('change', function(){
         chequerUrlOne = ironmanUrl;
         chequerHTMLOne = '';
     }
+    else if($(this).val() === 'computerOne'){
+        $('.pOneProfile').css('background-image', 'none');
+        $('.pOneProfile p').css('opacity', '1')
+                           .html('Start');
+    }
     else{//default X or O
         //change back to default
         $('.pOneProfile').css('background-image', 'none');
@@ -377,35 +382,77 @@ const makeDecision = function(){
 }; //makeDecision()
 
 
+/* ------------------------------------------------------------------------------------ */
+//Player One is computer
+//when set player one as computer, need to press start to let computer place the key to start the game
+$('.pOneProfile').on('click', function(){
+    if($('.pOneProfile p').html() === 'Start'){
 
+        //prevent when player one is computer, user click board first
+        isFirstPlayer = false;
 
+        //decide which profile user choose for player two, then decide which profile computer use
+        //because if set computer profile when click the dropdown bar, if we set computer mode first then set human profile, the computer profile would not be related to the human profile.
+        
+        if($('#dropdownTwo').val() === 'malfoy'){
+            $('.pOneProfile').css('background-image', harryUrl);
+            $('.pOneProfile p').css('opacity', '0');
+            chequerUrlOne = harryUrl;
+            chequerHTMLOne = '';
+        }
+        else if($('#dropdownTwo').val() === 'sasuke'){
+            $('.pOneProfile').css('background-image', narutoUrl);
+            $('.pOneProfile p').css('opacity', '0');
+            chequerUrlOne = narutoUrl;
+            chequerHTMLOne = '';
+        }
+        else if($('#dropdownTwo').val() === 'captain'){
+            $('.pOneProfile').css('background-image', ironmanUrl);
+            $('.pOneProfile p').css('opacity', '0');
+            chequerUrlOne = ironmanUrl;
+            chequerHTMLOne = '';
+        }
+        else{
+            $('.pOneProfile').css('background-image', 'none');
+            $('.pOneProfile p').css('opacity', '1');
+            chequerUrlOne = 'none';
+            chequerHTMLOne = '&#10005';
+        }
 
+        //Random row and column position between 0 to board.length - 1 of AI
+        let idrAI = Math.floor(Math.random() * (board.length));
+        let idcAI = Math.floor(Math.random() * (board.length));
 
+        //record in the board array
+        board[idrAI][idcAI] = 1;
 
+        //find the exact div use idrAI and idcAI
+        $('div').each(function(){
+            if($(this).data('row') === idrAI && $(this).data('column') === idcAI){
+                $(this).html(chequerHTMLOne);
+                $(this).css('background-image', chequerUrlOne);
+            }
+        })
 
+        //change player color to show who is the next one
+        $('#pOne').css({
+            'background-color': '#e4e6e8',
+            'color': 'black',
+            'transition': '0.5s'
+        });
+        $('#pTwo').css({
+            'background-color': '#4577a2',
+            'color': 'white',
+            'transition': '0.5s'
+        });
+            
+    }
 
-
-
-
-// // //if player one is computer
-// // //decide which profile user choose for player two, then decide which profile computer use
-// // if($('#dropdownTwo').val() === 'malfoy'){
-// //     chequerUrlTwo = harryUrl;
-// //     chequerHTMLTwo = '';
-// // }
-// // else if($('#dropdownOne').val() === 'sasuke'){
-// //     chequerUrlTwo = narutoUrl;
-// //     chequerHTMLTwo = '';
-// // }
-// // else if($('#dropdownOne').val() === 'captain'){
-// //     chequerUrlTwo = ironmanUrl;
-// //     chequerHTMLTwo = '';
-// // }
-// // else{
-// //     chequerUrlTwo = 'none';
-// //     chequerHTMLTwo = '&#10005';
-// // }
-// // //then use function AIToHumanTwo
+    //change the profile html in case click profile part the above will run again and again
+    //becuase html is start is a condition
+    $('.pOneProfile p').html('&#10005');
+    
+})
 
 
 
@@ -417,14 +464,14 @@ $('.chequer').on('click', function(){
 
     // console.log('fisrt',JSON.stringify(board));
     // console.table(board);
-    
+
     //if player two is computer
     if($('#dropdownTwo').val() === 'computerTwo'){
         
-        console.log('computer two click');//for check
+        // console.log('computer two click');//for check
         
         //decide which profile user choose for player one, then decide which profile computer use
-        //because if set set human profile first then computer, the profile would be not related to the human profile.
+        //because if set computer profile when click the dropdown bar, if we set computer mode first then set human profile, the computer profile would not be related to the human profile.
         if($('#dropdownOne').val() === 'harry'){
             $('.pTwoProfile').css('background-image', malfoyUrl);
             $('.pTwoProfile p').css('opacity', '0');
@@ -459,33 +506,127 @@ $('.chequer').on('click', function(){
         // if($(this).html() === '' && typeof(key) !== 'number'){
         //if value in that related matrix is 0, and game not finish
         if(board[idr][idc] === 0 && typeof(key) !== 'number'){
-        
-            // if isFirstPlayer = true, it means it is the first player's turn
-            if(isFirstPlayer){
+            
+            board[idr][idc] = 1;
     
-                board[idr][idc] = 1;
-        
-                //write html or show background in the clicked div box
-                $(this).html(chequerHTMLOne);
-                $(this).css('background-image', chequerUrlOne);
-        
+            //write html or show background in the clicked div box
+            $(this).html(chequerHTMLOne);
+            $(this).css('background-image', chequerUrlOne);
+    
+            //change player color to show who is the next one
+            $('#pOne').css({
+                'background-color': '#e4e6e8',
+                'color': 'black',
+                'transition': '0.5s'
+            });
+            $('#pTwo').css({
+                'background-color': '#4577a2',
+                'color': 'white',
+                'transition': '0.5s'
+            });
+    
+            //decide if there is a winner
+            key = checkWinner(idr, idc);
+    
+            
+            //Computer's turn
+            //To check if is fair or already have the winner, if it is, computer would not do anything
+            //if isGameFair = board.length, then the board is full and game is fair
+            let isGameFair = 0;
+            for (let i = 0; i < board.length; i++){
+                if(!board[i].includes(0)){
+                    isGameFair += 1;            
+                }
+            }
+
+            //Random row and column position between 0 to board.length - 1 of AI
+            //when game is not over, computer place its key
+            if(key !== 1 && key !== -1 && isGameFair !== board.length){ 
+                
+                idrInitial = Math.floor(Math.random() * (board.length));
+                idcInitial = Math.floor(Math.random() * (board.length));
+
+                for(i = 0; i < board.length ^ 2; i++){
+                    if(board[idrInitial][idcInitial] !== 0){
+                        idrInitial = Math.floor(Math.random() * (board.length));
+                        idcInitial = Math.floor(Math.random() * (board.length));
+                    }
+                    else{
+                        board[idrInitial][idcInitial] = -1;
+                        idrAI = idrInitial;
+                        idcAI = idcInitial;
+                        break;
+                    }
+                }
+ 
+
+                //find the exact div use idrAI and idcAI
+                $('div').each(function(){
+                    if($(this).data('row') === idrAI && $(this).data('column') === idcAI){
+                        // $(this).html('&#927');
+                        $(this).html(chequerHTMLTwo);
+                        $(this).css('background-image', chequerUrlTwo);
+                    }
+                })
+
+
                 //change player color to show who is the next one
                 $('#pOne').css({
+                    'background-color': '#b5363d',
+                    'color': 'white',
+                    'transition': '0.5s'
+                });
+                $('#pTwo').css({
                     'background-color': '#e4e6e8',
                     'color': 'black',
                     'transition': '0.5s'
                 });
-                $('#pTwo').css({
-                    'background-color': '#4577a2',
+        
+                key = checkWinner(idrAI, idcAI);
+
+            }        
+            
+        }
+        
+        //decide the game result, if it is a fair game, or P1 or P2 win
+        makeDecision();
+
+    }
+/* ------------------------------------------------------------------------------------ */
+    //if player one is computer
+    else if($('#dropdownOne').val() === 'computerOne'){
+
+        //after player one computer place the key
+        if(!isFirstPlayer){
+
+            //human's turn
+            const idr = $(this).data('row');
+            const idc = $(this).data('column');
+    
+            if(board[idr][idc] === 0 && typeof(key) !== 'number'){
+                
+                board[idr][idc] = -1;
+                    
+                //write html or show background in the clicked div box
+                $(this).html(chequerHTMLTwo);
+                $(this).css('background-image', chequerUrlTwo);
+        
+                //change player color to show who is the next one
+                $('#pOne').css({
+                    'background-color': '#b5363d',
                     'color': 'white',
                     'transition': '0.5s'
                 });
+                $('#pTwo').css({
+                    'background-color': '#e4e6e8',
+                    'color': 'black',
+                    'transition': '0.5s'
+                });
         
-                //decide if there is a winner
-                key = checkWinner(idr, idc);
+                key = checkWinner(idr, idc);  
         
-                // isFirstPlayer = true;
                 
+                //Computer's turn
                 //To check if is fair or already have the winner, if it is, computer would not do anything
                 //if isGameFair = board.length, then the board is full and game is fair
                 let isGameFair = 0;
@@ -494,7 +635,7 @@ $('.chequer').on('click', function(){
                         isGameFair += 1;            
                     }
                 }
-
+    
                 //Random row and column position between 0 to board.length - 1 of AI
                 //when game is not over, computer place its key
                 if(key !== 1 && key !== -1 && isGameFair !== board.length){ 
@@ -508,7 +649,7 @@ $('.chequer').on('click', function(){
                             idcInitial = Math.floor(Math.random() * (board.length));
                         }
                         else{
-                            board[idrInitial][idcInitial] = -1;
+                            board[idrInitial][idcInitial] = 1;
                             idrAI = idrInitial;
                             idcAI = idcInitial;
                             break;
@@ -516,41 +657,41 @@ $('.chequer').on('click', function(){
                     }
      
     
-                    //find the exact div use idrAI and idcAI
-                    $('div').each(function(){
-                        if($(this).data('row') === idrAI && $(this).data('column') === idcAI){
-                            // $(this).html('&#927');
-                            $(this).html(chequerHTMLTwo);
-                            $(this).css('background-image', chequerUrlTwo);
-                        }
-                    })
+                //find the exact div use idrAI and idcAI
+                $('div').each(function(){
+                    if($(this).data('row') === idrAI && $(this).data('column') === idcAI){
+                        $(this).html(chequerHTMLOne);
+                        $(this).css('background-image', chequerUrlOne);
+                    }
+                })
     
-    
-                    //change player color to show who is the next one
-                    $('#pOne').css({
-                        'background-color': '#b5363d',
-                        'color': 'white',
-                        'transition': '0.5s'
-                    });
-                    $('#pTwo').css({
-                        'background-color': '#e4e6e8',
-                        'color': 'black',
-                        'transition': '0.5s'
-                    });
+                //change player color to show who is the next one
+                $('#pOne').css({
+                    'background-color': '#e4e6e8',
+                    'color': 'black',
+                    'transition': '0.5s'
+                });
+                $('#pTwo').css({
+                    'background-color': '#4577a2',
+                    'color': 'white',
+                    'transition': '0.5s'
+                });
             
                     key = checkWinner(idrAI, idcAI);
-
-                }
-        
+    
+                }        
+                
             }
+
         }
         
         //decide the game result, if it is a fair game, or P1 or P2 win
         makeDecision();
 
-    }
+    } 
+/* ------------------------------------------------------------------------------------ */
+    //human to human battle
     else{
-        //human to human battle
         //find the row and column with data
     
         //for attribute data-row method, will return a string like '1'
@@ -664,6 +805,11 @@ $('.chequer').on('click', function(){
 
 
 
+
+
+
+
+
 /* ------------------------------------------------------------------------------------ */
 // Set a new round
 //if click the next round button, will clear the board
@@ -714,10 +860,17 @@ const nextRound = function(){
         'color': 'black'
     });
 
+    //if player one is computer, change profile html back to 'Start', and clear the background
+    if($('#dropdownOne').val() === 'computerOne'){
+        $('.pOneProfile').css('background-image', 'none');
+        $('.pOneProfile p').css('opacity', '1')
+                           .html('Start');
+    }
+    
     //show the number of rounds
     $('#roundNo').html(`${rounds}`);
 
-}; //newRound()
+}; //nextRound()
 
 
 $('#reset').on('click', nextRound);
