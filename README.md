@@ -125,11 +125,10 @@ JS
     * player one is human, player two is computer
         1. human click the key on board, then computer automatically place the key
         2. use random and floor to make two int numbers from 0 to 2 
-        3. give the number to row and column in data to find that specific div
-        4. use the row value to find which div in class boardThreeRow${i}
-        5. under that class div, use column for loop to find the exact div
-        6. after find that div, write html to it as -1
-        7. isFistPlayer always true
+        3. give the number to row and column in data to find that specific div use each iterate
+        4. after find that div, write html to it 
+        5. isFistPlayer always true
+        6. don't let the computer to place the key which have value
 
 
 In version 2

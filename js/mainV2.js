@@ -65,9 +65,9 @@ let tieNo = 0;
 let board = boardThree;
 
 //when fresh the webpage, back to default X and O, and 3 * 3 board
-$('#dropdownOne').val('symbolX');
-$('#dropdownTwo').val('symbolO');
-$('#dropdownBoardSize').val('boardSize3');
+// $('#dropdownOne').val('symbolX');//can also change on autocomplete = off in html in select
+// $('#dropdownTwo').val('symbolO');
+// $('#dropdownBoardSize').val('boardSize3');
 
 /* ------------------------------------------------------------------------------------ */
 // Build different size board in HTML
@@ -315,6 +315,7 @@ const makeDecision = function(){
         rounds += 1;     
         
         //set key === number but not 1 or -1
+        //because I don't want to click empty div and don't want rounds + 1 again
         key = 0;
     }
 
@@ -595,10 +596,13 @@ const makeDecision = function(){
 
 $('.chequer').on('click', function(){
 
+    // console.log('fisrt',JSON.stringify(board));
+    // console.table(board);
+    
     //if player two is computer
     if($('#dropdownTwo').val() === 'computerTwo'){
         console.log('computer two click');
-
+        
         const idr = $(this).data('row');
         const idc = $(this).data('column');
         // console.log(idr); // for check
@@ -634,38 +638,52 @@ $('.chequer').on('click', function(){
                 key = checkWinner(idr, idc);
         
                 // isFirstPlayer = true;
-    
+
                 //Random row and column position between 0 to board.length - 1 of AI
-                idrAI = Math.floor(Math.random() * (board.length - 1));
-                idcAI = Math.floor(Math.random() * (board.length - 1));
+                if(key !== 1 && key !== -1){
+                    
+                    idrInitial = Math.floor(Math.random() * (board.length));
+                    idcInitial = Math.floor(Math.random() * (board.length));
     
-                board[idrAI][idcAI] = -1;
-    
-                //find the exact div use idrAI and idcAI
-                $('div').each(function(){
-                    if($(this).data('row') === idrAI && $(this).data('column') === idcAI){
-                        $(this).html('&#927');
+                    for(i = 0; i < board.length ^ 2; i++){
+                        if(board[idrInitial][idcInitial] !== 0){
+                            idrInitial = Math.floor(Math.random() * (board.length));
+                            idcInitial = Math.floor(Math.random() * (board.length));
+                        }
+                        else{
+                            board[idrInitial][idcInitial] = -1;
+                            idrAI = idrInitial;
+                            idcAI = idcInitial;
+                            break;
+                        }
                     }
-                })
-
-
-                    // $(this).html(chequerHTMLTwo);
-                    // $(this).css('background-image', chequerUrlTwo);
-                
+     
     
-                //change player color to show who is the next one
-                $('#pOne').css({
-                    'background-color': '#b5363d',
-                    'color': 'white',
-                    'transition': '0.5s'
-                });
-                $('#pTwo').css({
-                    'background-color': '#e4e6e8',
-                    'color': 'black',
-                    'transition': '0.5s'
-                });
-        
-                key = checkWinner(idrAI, idcAI);
+                    //find the exact div use idrAI and idcAI
+                    $('div').each(function(){
+                        if($(this).data('row') === idrAI && $(this).data('column') === idcAI){
+                            $(this).html('&#927');
+                            // $(this).html(chequerHTMLTwo);
+                            // $(this).css('background-image', chequerUrlTwo);
+                        }
+                    })
+    
+    
+                    //change player color to show who is the next one
+                    $('#pOne').css({
+                        'background-color': '#b5363d',
+                        'color': 'white',
+                        'transition': '0.5s'
+                    });
+                    $('#pTwo').css({
+                        'background-color': '#e4e6e8',
+                        'color': 'black',
+                        'transition': '0.5s'
+                    });
+            
+                    key = checkWinner(idrAI, idcAI);
+
+                }
         
             }
         }
@@ -675,7 +693,7 @@ $('.chequer').on('click', function(){
 
     }
     else{
-        //find the row and column with data
+    //find the row and column with data
 
     //for attribute data-row method, will return a string like '1'
     // const idr = $(this).attr('data-row'); 
