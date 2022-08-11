@@ -141,6 +141,8 @@ write CSS to make the board
 when want the row and column data, 
 use $(this).attr('data-row') or $(this).attr('column-row') to get the number
 
+# do some css and html
+# computer can change the profile with user
 
 
 

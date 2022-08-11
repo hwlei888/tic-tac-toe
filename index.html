@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe</title>
+    <title>Tic Tac Toe V2</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -21,8 +21,8 @@
             </div>
 
             <div id="boardSize">
-                <select id="dropdownBoardSize">
-                    <option value="boardSize3">3 &#10005 3 Board</option>
+                <select id="dropdownBoardSize" autocomplete="off">
+                    <option value="boardSize3" selected>3 &#10005 3 Board</option>
                     <option value="boardSize5">5 &#10005 5 Board</option>
                     <option value="boardSize8">8 &#10005 8 Board</option>
                 </select>
@@ -50,11 +50,13 @@
                 </div>
 
                 <div class="dropdownBox">
-                    <select id="dropdownOne">
-                        <option value="symbolX">I'm &#10005</option>
+                <!-- autocomplete='off' will turn off the webpage memory -->
+                    <select id="dropdownOne" autocomplete="off">
+                        <option value="symbolX" selected>I'm &#10005</option>
                         <option value="harry">I'm Harry</option>
                         <option value="naruto">I'm Naruto</option>
                         <option value="ironman">I'm Ironman</option>
+                        <option value="computerOne">I'm Computer</option>
                     </select>
                 </div>
 
@@ -73,11 +75,12 @@
                 </div>
 
                 <div class="dropdownBox">
-                    <select id="dropdownTwo">
-                        <option value="symbolO">I'm &#927</option>
+                    <select id="dropdownTwo" autocomplete="off">
+                        <option value="symbolO" selected>I'm &#927</option>
                         <option value="malfoy">I'm Malfoy</option>
                         <option value="sasuke">I'm Sasuke</option>
                         <option value="captain">I'm Captain</option>
+                        <option value="computerTwo">I'm Computer</option>
                     </select>
                 </div>
 

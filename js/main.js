@@ -65,9 +65,9 @@ let tieNo = 0;
 let board = boardThree;
 
 //when fresh the webpage, back to default X and O, and 3 * 3 board
-$('#dropdownOne').val('symbolX');
-$('#dropdownTwo').val('symbolO');
-$('#dropdownBoardSize').val('boardSize3');
+// $('#dropdownOne').val('symbolX');//can also change on autocomplete = off in html in select
+// $('#dropdownTwo').val('symbolO');
+// $('#dropdownBoardSize').val('boardSize3');
 
 /* ------------------------------------------------------------------------------------ */
 // Build different size board in HTML
@@ -79,26 +79,29 @@ for (let i = 0; i < boardThree.length; i++){
                     .appendTo('.threeLineBoard')
 }
 
-//build 9 divs with rows and columns
-// for (let row = 0; row < boardThree.length; row++){
-//     for (let column = 0; column < boardThree.length; column++){
-//         $('<div></div>').addClass('chequer')
-//                         .data('row', row)
-//                         .data('column', column)
-//                         .appendTo($(`.boardThreeRow${row}`));
-//     }
-// }
-
+// build 9 divs with rows and columns
+//data method show no info in inspector html sector, need to check console with 'use' in console
 for (let row = 0; row < boardThree.length; row++){
     for (let column = 0; column < boardThree.length; column++){
         $('<div></div>').addClass('chequer')
-                        .attr({
-                            'data-row': row,
-                            'data-column': column
+                        .data({
+                            'row': row,
+                            'column': column
                         })
-        .appendTo($(`.boardThreeRow${row}`));
+                        .appendTo($(`.boardThreeRow${row}`));
     }
 }
+
+// for (let row = 0; row < boardThree.length; row++){
+//     for (let column = 0; column < boardThree.length; column++){
+//         $('<div></div>').addClass('chequer')
+//                         .attr({
+//                             'data-row': row,
+//                             'data-column': column
+//                         })
+//         .appendTo($(`.boardThreeRow${row}`));
+//     }
+// }
 
 
 //Build a 5 * 5 board
@@ -112,13 +115,25 @@ for (let i = 0; i < boardFive.length; i++){
 for (let row = 0; row < boardFive.length; row++){
     for (let column = 0; column < boardFive.length; column++){
         $('<div></div>').addClass('chequer')
-                        .attr({
-                            'data-row': row,
-                            'data-column': column
+                        .data({
+                            'row': row,
+                            'column': column
                         })
                         .appendTo($(`.boardFiveRow${row}`));
     }
 }
+
+
+// for (let row = 0; row < boardFive.length; row++){
+//     for (let column = 0; column < boardFive.length; column++){
+//         $('<div></div>').addClass('chequer')
+//                         .attr({
+//                             'data-row': row,
+//                             'data-column': column
+//                         })
+//                         .appendTo($(`.boardFiveRow${row}`));
+//     }
+// }
 
 //Build a 8 * 8 board
 //build 8 rows with class row0 - row7
@@ -131,13 +146,25 @@ for (let i = 0; i < boardEight.length; i++){
 for (let row = 0; row < boardEight.length; row++){
     for (let column = 0; column < boardEight.length; column++){
         $('<div></div>').addClass('chequer')
-                        .attr({
-                            'data-row': row,
-                            'data-column': column
+                        .data({
+                            'row': row,
+                            'column': column
                         })
                         .appendTo($(`.boardEightRow${row}`));
     }
 }
+
+
+// for (let row = 0; row < boardEight.length; row++){
+//     for (let column = 0; column < boardEight.length; column++){
+//         $('<div></div>').addClass('chequer')
+//                         .attr({
+//                             'data-row': row,
+//                             'data-column': column
+//                         })
+//                         .appendTo($(`.boardEightRow${row}`));
+//     }
+// }
 
 
 /* ------------------------------------------------------------------------------------ */
@@ -246,76 +273,12 @@ $('#dropdownTwo').on('change', function(){
 
 
 
-/* ------------------------------------------------------------------------------------ */
-
-$('.chequer').on('click', function(){
-    
-    //find the row and column with data
-    const idr = $(this).attr('data-row');
-    const idc = $(this).attr('data-column');
-    console.log(idr); // for check
-    console.log(typeof(idr));//for check
-    //can work when idr and idc are string??????????????????????????????????
-
-    //if no value in that div, and game not finish
-    // if($(this).html() === '' && typeof(key) !== 'number'){
-    //if value in that related matrix is 0, and game not finish
-    if(board[idr][idc] === 0 && typeof(key) !== 'number'){
-        
-        // console.log('1st',key)//for check
-
-        // if isFirstPlayer = true, it means it is the first player's turn
-        if(isFirstPlayer){
-            isFirstPlayer = false;
-            board[idr][idc] = 1;
-
-            //write html or show background in the clicked div box
-            $(this).html(chequerHTMLOne);
-            $(this).css('background-image', chequerUrlOne);
-
-            //change player color to show who is the next one
-            $('#pOne').css({
-                'background-color': '#e4e6e8',
-                'color': 'black',
-                'transition': '0.5s'
-            });
-            $('#pTwo').css({
-                'background-color': '#4577a2',
-                'color': 'white',
-                'transition': '0.5s'
-            });
-
-            //decide if there is a winner
-            key = makeDecision(idr, idc);
-
-        }else { //another player
-            isFirstPlayer = true;
-            board[idr][idc] = -1;
-            
-            //write html or show background in the clicked div box
-            $(this).html(chequerHTMLTwo);
-            $(this).css('background-image', chequerUrlTwo);
-
-            //change player color to show who is the next one
-            $('#pOne').css({
-                'background-color': '#b5363d',
-                'color': 'white',
-                'transition': '0.5s'
-            });
-            $('#pTwo').css({
-                'background-color': '#e4e6e8',
-                'color': 'black',
-                'transition': '0.5s'
-            });
-
-            key = makeDecision(idr, idc);
-
-        }
-    }
-    
-
 
 /* ------------------------------------------------------------------------------------ */
+// checkWinner() function to check the winner or fair every time click the button
+
+const makeDecision = function(){
+    
     //Fair Game
     //loop around the whole array, if no 0 inside and key is not a number, then the game is fair
     let isGameFair = 0;
@@ -324,13 +287,13 @@ $('.chequer').on('click', function(){
             isGameFair += 1;            
         }
     }
-
+    
     if(isGameFair === board.length && typeof(key) !== 'number'){
         console.log('Fair Game!'); //for check
-
+    
         //show fair game label
         $('#fair').css('opacity', '1');
-
+    
         //both turn grey
         $('#pOne').css({
             'background-color': '#e4e6e8',
@@ -342,22 +305,22 @@ $('.chequer').on('click', function(){
             'color': 'black',
             'transition': '0.5s'
         });
-
+    
         //fair game time + 1
         tieNo += 1;
         $('#tieNo').html(`${tieNo}`);
         $('#tieNo').css('opacity', '1');
-
+    
         //number of rounds + 1
         rounds += 1;     
         
         //set key === number but not 1 or -1
+        //because I don't want to click empty div and don't want rounds + 1 again
         key = 0;
     }
 
-
-
-/* ------------------------------------------------------------------------------------ */
+    /* ------------------------------------------------------------------------------------ */
+    // if it is not a fair game
     //check if player1 or player2 win
     if(key === 1){
         console.log('Player One Win'); //for check
@@ -411,8 +374,292 @@ $('.chequer').on('click', function(){
         rounds += 1;
 
     }
+}; //makeDecision()
+
+
+
+
+
+
+
+
+
+
+
+
+// // //if player one is computer
+// // //decide which profile user choose for player two, then decide which profile computer use
+// // if($('#dropdownTwo').val() === 'malfoy'){
+// //     chequerUrlTwo = harryUrl;
+// //     chequerHTMLTwo = '';
+// // }
+// // else if($('#dropdownOne').val() === 'sasuke'){
+// //     chequerUrlTwo = narutoUrl;
+// //     chequerHTMLTwo = '';
+// // }
+// // else if($('#dropdownOne').val() === 'captain'){
+// //     chequerUrlTwo = ironmanUrl;
+// //     chequerHTMLTwo = '';
+// // }
+// // else{
+// //     chequerUrlTwo = 'none';
+// //     chequerHTMLTwo = '&#10005';
+// // }
+// // //then use function AIToHumanTwo
+
+
+
+
+/* ------------------------------------------------------------------------------------ */
+// every click check the result
+
+$('.chequer').on('click', function(){
+
+    // console.log('fisrt',JSON.stringify(board));
+    // console.table(board);
     
-});
+    //if player two is computer
+    if($('#dropdownTwo').val() === 'computerTwo'){
+        
+        console.log('computer two click');//for check
+        
+        //decide which profile user choose for player one, then decide which profile computer use
+        //because if set set human profile first then computer, the profile would be not related to the human profile.
+        if($('#dropdownOne').val() === 'harry'){
+            $('.pTwoProfile').css('background-image', malfoyUrl);
+            $('.pTwoProfile p').css('opacity', '0');
+            chequerUrlTwo = malfoyUrl;
+            chequerHTMLTwo = '';
+        }
+        else if($('#dropdownOne').val() === 'naruto'){
+            $('.pTwoProfile').css('background-image', sasukeUrl);
+            $('.pTwoProfile p').css('opacity', '0');
+            chequerUrlTwo = sasukeUrl;
+            chequerHTMLTwo = '';
+        }
+        else if($('#dropdownOne').val() === 'ironman'){
+            $('.pTwoProfile').css('background-image', captainUrl);
+            $('.pTwoProfile p').css('opacity', '0');
+            chequerUrlTwo = captainUrl;
+            chequerHTMLTwo = '';
+        }
+        else{
+            $('.pTwoProfile').css('background-image', 'none');
+            $('.pTwoProfile p').css('opacity', '1');
+            chequerUrlTwo = 'none';
+            chequerHTMLTwo = '&#927';
+        }
+        
+        const idr = $(this).data('row');
+        const idc = $(this).data('column');
+        // console.log(idr); // for check
+        // console.log(typeof(idr));//for check
+        
+        //if no value in that div, and game not finish
+        // if($(this).html() === '' && typeof(key) !== 'number'){
+        //if value in that related matrix is 0, and game not finish
+        if(board[idr][idc] === 0 && typeof(key) !== 'number'){
+        
+            // if isFirstPlayer = true, it means it is the first player's turn
+            if(isFirstPlayer){
+    
+                board[idr][idc] = 1;
+        
+                //write html or show background in the clicked div box
+                $(this).html(chequerHTMLOne);
+                $(this).css('background-image', chequerUrlOne);
+        
+                //change player color to show who is the next one
+                $('#pOne').css({
+                    'background-color': '#e4e6e8',
+                    'color': 'black',
+                    'transition': '0.5s'
+                });
+                $('#pTwo').css({
+                    'background-color': '#4577a2',
+                    'color': 'white',
+                    'transition': '0.5s'
+                });
+        
+                //decide if there is a winner
+                key = checkWinner(idr, idc);
+        
+                // isFirstPlayer = true;
+                
+                //To check if is fair or already have the winner, if it is, computer would not do anything
+                //if isGameFair = board.length, then the board is full and game is fair
+                let isGameFair = 0;
+                for (let i = 0; i < board.length; i++){
+                    if(!board[i].includes(0)){
+                        isGameFair += 1;            
+                    }
+                }
+
+                //Random row and column position between 0 to board.length - 1 of AI
+                //when game is not over, computer place its key
+                if(key !== 1 && key !== -1 && isGameFair !== board.length){ 
+                    
+                    idrInitial = Math.floor(Math.random() * (board.length));
+                    idcInitial = Math.floor(Math.random() * (board.length));
+    
+                    for(i = 0; i < board.length ^ 2; i++){
+                        if(board[idrInitial][idcInitial] !== 0){
+                            idrInitial = Math.floor(Math.random() * (board.length));
+                            idcInitial = Math.floor(Math.random() * (board.length));
+                        }
+                        else{
+                            board[idrInitial][idcInitial] = -1;
+                            idrAI = idrInitial;
+                            idcAI = idcInitial;
+                            break;
+                        }
+                    }
+     
+    
+                    //find the exact div use idrAI and idcAI
+                    $('div').each(function(){
+                        if($(this).data('row') === idrAI && $(this).data('column') === idcAI){
+                            // $(this).html('&#927');
+                            $(this).html(chequerHTMLTwo);
+                            $(this).css('background-image', chequerUrlTwo);
+                        }
+                    })
+    
+    
+                    //change player color to show who is the next one
+                    $('#pOne').css({
+                        'background-color': '#b5363d',
+                        'color': 'white',
+                        'transition': '0.5s'
+                    });
+                    $('#pTwo').css({
+                        'background-color': '#e4e6e8',
+                        'color': 'black',
+                        'transition': '0.5s'
+                    });
+            
+                    key = checkWinner(idrAI, idcAI);
+
+                }
+        
+            }
+        }
+        
+        //decide the game result, if it is a fair game, or P1 or P2 win
+        makeDecision();
+
+    }
+    else{
+        //human to human battle
+        //find the row and column with data
+    
+        //for attribute data-row method, will return a string like '1'
+        // const idr = $(this).attr('data-row'); 
+        // const idc = $(this).attr('data-column');
+    
+        //for data method, will return a number directly like 1
+        const idr = $(this).data('row'); 
+        const idc = $(this).data('column');
+        // console.log(idr); // for check
+        // console.log(typeof(idr));//for check
+        //can work when idr and idc are string just with number inside like '1' or '2'
+        
+        //if no value in that div, and game not finish
+        // if($(this).html() === '' && typeof(key) !== 'number'){
+        //if value in that related matrix is 0, and game not finish
+        if(board[idr][idc] === 0 && typeof(key) !== 'number'){
+            
+            // console.log('1st',key)//for check
+        
+            // if isFirstPlayer = true, it means it is the first player's turn
+            if(isFirstPlayer){
+                isFirstPlayer = false;
+                board[idr][idc] = 1;
+        
+                //write html or show background in the clicked div box
+                $(this).html(chequerHTMLOne);
+                $(this).css('background-image', chequerUrlOne);
+        
+                //change player color to show who is the next one
+                $('#pOne').css({
+                    'background-color': '#e4e6e8',
+                    'color': 'black',
+                    'transition': '0.5s'
+                });
+                $('#pTwo').css({
+                    'background-color': '#4577a2',
+                    'color': 'white',
+                    'transition': '0.5s'
+                });
+        
+                //decide if there is a winner
+                key = checkWinner(idr, idc);
+        
+            }else { //another player
+                isFirstPlayer = true;
+                board[idr][idc] = -1;
+                
+                //write html or show background in the clicked div box
+                $(this).html(chequerHTMLTwo);
+                $(this).css('background-image', chequerUrlTwo);
+        
+                //change player color to show who is the next one
+                $('#pOne').css({
+                    'background-color': '#b5363d',
+                    'color': 'white',
+                    'transition': '0.5s'
+                });
+                $('#pTwo').css({
+                    'background-color': '#e4e6e8',
+                    'color': 'black',
+                    'transition': '0.5s'
+                });
+        
+                key = checkWinner(idr, idc);  
+            }
+        }
+        
+        //decide the game result, if it is a fair game, or P1 or P2 win
+        makeDecision();   
+        }
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -567,7 +814,7 @@ $('#restartGame').on('click', function(){
 
 /* ----------------------------------- Version 2 ------------------------------------------------- */
 
-const makeDecision = function(r, c){
+const checkWinner = function(r, c){
 
     // let count;
     const rowLength = board[r].length;
@@ -695,7 +942,7 @@ const makeDecision = function(r, c){
 //complicated way
 
 // // Several situations to decide if win or not.
-// const makeDecision = function(r, c){
+// const checkWinner = function(r, c){
 
 //     const rowLength = board[r].length;
 //     const columnLength = board.length;
