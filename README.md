@@ -19,7 +19,7 @@ HTML & CSS
 * The corner of the 1st line: 
     Restart this round
     Restart whole game
-    # Choose the board size
+    Choose the board size
 * The 2nd line: Game Name at the very top
 * The 3rd line: Set two players box and information
 * Assign two players the symbol 
@@ -36,13 +36,14 @@ HTML & CSS
    (find some graphs to fill in)
    (hover effects when player choose their profile in the next version)
    # (win animation in the next version)
+   # (hover when press the key board)
 * Set a box beside each player symbol, in the future who wins it will shows 'win' beside the player name ()
 * Set a box between two players, if neither wins, show a draw in the middle box
 * The 4th line: selec which profile
 * The 5th line: Build a 3 * 3 game GUI
 * The 6th line: shows multiple game rounds with a win counter (Next version)
 * Larger Board (next version)
-* # do not rely on id, build a for loop with row and column in HTML (Next version)
+* do not rely on id, build a for loop with row and column in HTML (Next version)
 
 JS
 * Reset Button to reset the whole game
@@ -115,7 +116,7 @@ JS
 * Three in a line then one win
 * Player One can choose its symbol (Next version)
 * Larger Board (next version)
-
+* # change the rule of winning with different board
 
 
 In version 2
