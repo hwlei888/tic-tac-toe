@@ -1,8 +1,20 @@
 
+@import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
 
-/* div{
-    border: 1px solid red;
-} */
+
+
+/* font-family: 'DynaPuff', cursive; */
+/* font-family: 'Indie Flower', cursive; */
+/* font-family: 'Gloria Hallelujah', cursive; */
+
+
+
+
+div{
+    /* border: 1px solid red; */
+}
 
 /* .mainContainer{
     position: relative;
@@ -11,6 +23,11 @@
     height: 100%;
 } */
 
+body{
+    padding: 0;
+    margin: 0;
+}
+
 
 
 /*********** firstLine: reset and board size choose button ***********/
@@ -18,11 +35,18 @@
 .firstLine{
     position: relative;
     text-align: center;
+    height: 30px;
+    background-color: #cad1d7;
+    /* background-color: #5586ae; */
 }
 
 .firstLine div{
     display: inline;
     margin: 30px;
+}
+
+.firstLine button{
+    margin-top: 5px;
 }
 
 
@@ -31,6 +55,10 @@
 .secondLine{
     position: relative;
     text-align: center;
+    /* font-family: 'Indie Flower', cursive; */
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size: 40px;
+    height: 83px;
 }
 
 /************ thirdLine: player and winning and fair notification ************/
@@ -41,6 +69,7 @@
     flex-wrap: nowrap;
     justify-content: center;
     text-align: center;
+    height: 135px;
 }
 
 .thirdLine #p1Win,
@@ -51,25 +80,27 @@
 {
     /* border: 1px solid green; */
     width: 15%;
-    height: 120px;
+    height: 100%;
     margin: 0 18px;
-    font-size: 18px;
-    font-weight: 800;
+    /* font-size: 18px; */
+    font-weight: 700;
 }
 
 #pOne,
 #pTwo
 {
     position: relative;
-    border: 1px solid rgb(58, 55, 55);
+    /* border: 1px solid rgb(58, 55, 55); */
     background-color: #e4e6e8;
     text-align: center;
+    border-radius: 15%;
+    font-family: 'Indie Flower', cursive;
+    font-size: 18px;
     /* background-color: #b5363d; */
     /* background-color: #4577a2; */
 }
 
 #pOne{
-    border: 1px solid rgb(58, 55, 55);
     background-color: #b5363d;
     color: white;
 }
@@ -78,7 +109,40 @@
 #fair,
 #p2Win
 {
+    position: relative;
     opacity: 0;
+    font-family: 'Gloria Hallelujah', cursive;
+    font-size: 30px;
+    top: -30px;
+    transition-duration: 0.2s;
+}
+
+#p1Win img{
+    position: relative;
+    /* left: -45px; */
+    left: -30%;
+    z-index: -2;
+    top: -55px;
+}
+
+#p2Win img{
+    position: relative;
+    left: -153px;
+    /* left: -130%; */
+    z-index: -2;
+    top: -55px;
+    transform: scaleX(-1);
+}
+
+#fair{
+    font-size: 25px;
+}
+
+#fair img{
+    position: relative;
+    z-index: -10;
+    width: 100%;
+    top: -50px;
 }
 
 
@@ -112,6 +176,12 @@
     /* height: 20%; */
     z-index: 30;
     width: 100%;
+}
+
+#dropdownOne,
+#dropdownTwo
+{
+    background-color: #e4e6e8;
 }
 
 
@@ -176,8 +246,8 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    width: 55vh;
-    height: 11vh;
+    width: 52vh;
+    height: 10.2vh;
     margin: 0 auto;
     justify-content: center;
     /* text-align: center; */
@@ -235,6 +305,20 @@
     background-size: contain;
 }
 
+.chequer:hover{
+    background-color: #e4e6e8;
+}
+
+.chequer:active{
+    background-color: #848688;
+    opacity: 0.5;
+}
+
+.chequer{
+    position: relative;
+    z-index: 3;
+}
+
 
 /************ sixthLine: for showing how many rounds ************/
 
@@ -242,12 +326,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 40px;
+    margin-top: 20px;
+    /* font-family: 'Indie Flower', cursive; */
+    font-family: 'Gloria Hallelujah', cursive;
 }
 
 .sixthLine div{
     text-align: center;
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 800;
     margin: 5px;
 }
@@ -257,7 +343,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .seventhLineBlock{
@@ -266,7 +352,9 @@
     align-items: center;
     font-size: 23px;
     font-weight: 800;
-    margin: 10px 30px;
+    margin: 0px 50px;
+    /* font-family: 'Indie Flower', cursive; */
+    font-family: 'Gloria Hallelujah', cursive;
 }
 
 .seventhLineBlock div{

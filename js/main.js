@@ -510,8 +510,8 @@ $('.chequer').on('click', function(){
             board[idr][idc] = 1;
     
             //write html or show background in the clicked div box
-            $(this).html(chequerHTMLOne);
-            $(this).css('background-image', chequerUrlOne);
+            $(this).html(chequerHTMLOne)
+                   .css('background-image', chequerUrlOne);
     
             //change player color to show who is the next one
             $('#pOne').css({
@@ -718,8 +718,8 @@ $('.chequer').on('click', function(){
                 board[idr][idc] = 1;
         
                 //write html or show background in the clicked div box
-                $(this).html(chequerHTMLOne);
-                $(this).css('background-image', chequerUrlOne);
+                $(this).html(chequerHTMLOne)
+                       .css('background-image', chequerUrlOne);
         
                 //change player color to show who is the next one
                 $('#pOne').css({
@@ -741,8 +741,8 @@ $('.chequer').on('click', function(){
                 board[idr][idc] = -1;
                 
                 //write html or show background in the clicked div box
-                $(this).html(chequerHTMLTwo);
-                $(this).css('background-image', chequerUrlTwo);
+                $(this).html(chequerHTMLTwo)
+                       .css('background-image', chequerUrlTwo);
         
                 //change player color to show who is the next one
                 $('#pOne').css({
