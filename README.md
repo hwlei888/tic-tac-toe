@@ -1,5 +1,8 @@
-Source:
+## Project Description Source:
 https://gist.github.com/textchimp/afcb3ddc676dccd59ccb18cb9391c87a
+
+## Link to the live playable game on GitHub
+https://hwlei888.github.io/tic-tac-toe/
 
 Technical Requirements
 Your app must:
@@ -14,8 +17,25 @@ Deploy your game online, where the rest of the world can access it
 Use semantic markup for HTML and CSS (adhere to best practices)
 
 
-8/8/2022
-HTML & CSS
+## General description of the project:
+* User can choose their own profile
+* User can record how many rounds they play and how many times player one wins, player two wins and fair game
+* User can play a next round and keep how many rounds they played
+* User can start a whole new session with restart
+* User can change the board to 3 * 3, 5 * 5 and 8 * 8 size
+* User can play with computer
+* computer can change the profile with the user choice
+
+
+## Tech used:
+* HTML
+* CSS
+* JavaScript
+* JQuery
+
+
+
+## HTML & CSS
 * The corner of the 1st line: 
     Restart this round
     Restart whole game
@@ -27,25 +47,20 @@ HTML & CSS
     1. there are html and graph
     2. hide html or display none for graph, and change the src of graph
     3. remember to change the js, where your decision is if there is html
-
-    $('#dropdownOne').on('change', function(){
-    if($(this).val() === 'harry'){
-        console.log('choose harry');
-    }
-})
-   (find some graphs to fill in)
-   (hover effects when player choose their profile in the next version)
-   # (win animation in the next version)
-   # (hover when press the key board)
-* Set a box beside each player symbol, in the future who wins it will shows 'win' beside the player name ()
+   
+* Set a box beside each player symbol, in the future who wins it will shows 'win' beside the player name 
+    - win animation in the next version
 * Set a box between two players, if neither wins, show a draw in the middle box
-* The 4th line: selec which profile
+* The 4th line: select which profile
+    - find some graphs to fill in
+    - [ ] set hover effect when user place the mouse on profile
 * The 5th line: Build a 3 * 3 game GUI
+    - hover when press the key board
 * The 6th line: shows multiple game rounds with a win counter (Next version)
 * Larger Board (next version)
 * do not rely on id, build a for loop with row and column in HTML (Next version)
 
-JS
+## JS
 * Reset Button to reset the whole game
 * Default player one first
 * Place player one symbol first then player two symbol in turn, switching symbol by clicking (on click)
@@ -57,21 +72,24 @@ JS
     When place the key, check if that block have html or not.
 4. if the second player place its key, set the corresponding location in array to -1
 5. To decide which side win:
-    5.1) 1st time thought: enumeration method, list all the probabilities, and use if to decide. But not suitable for the larger board.
-    5.2) 2nd time thought: divide into 4 situations:
+    - 5.1) 1st time thought: enumeration method, list all the probabilities, and use if to decide. But not suitable for the larger board.
+    - 5.2) 2nd time thought: divide into 4 situations:
+    ```
     const board = [
                     c0, c1, c2
                 r0  [0,  0,  0],
                 r1  [0,  0,  0],
                 r2  [0,  0,  0]
     ];
+    ```
         on the board is board[r][c]
-        a)horizontal:  check c+1, if same, check c+2
 
-                        c+1 same, c+2 not same, check c-1, first check c-1 >= 0
+        a)horizontal: check c+1, if same, check c+2
 
-                        c+1 not same, check c-1,
-                        if c-1 same, check c-2, first check c-2 >= 0 
+                      c+1 same, c+2 not same, check c-1, first check c-1 >= 0
+
+                      c+1 not same, check c-1,
+                      if c-1 same, check c-2, first check c-2 >= 0 
         
         b) vertical:    r+1 to check if the bottom key is the same,
                         if r+1 same check if r+2 is the same,
@@ -100,7 +118,7 @@ JS
                          if c+1 & r+1 not same, check c-1 & r-1,
                          if c-1 & r-1 same, check c-2 & r-2
 
-    5.3) divide into 4 directions,
+    - 5.3) divide into 4 directions,
          every click will run the whole grid to catch if there is a winner,
          in each direction, run a big for loop, then run a small loop inside, for example
 
@@ -112,11 +130,11 @@ JS
 
 * cannot click the same place twice (true of false?)
 
-* # When one win, there is something beside, start from a YOU WIN logo (Animation in the next version)
+* When one win, there is something beside, start from a YOU WIN logo (Animation in the next version)
 * Three in a line then one win
 * Player One can choose its symbol (Next version)
 * Larger Board (next version)
-* # change the rule of winning with different board
+* - [ ] change the rule of winning with different board
 * AI
     * random AI
     * first priority is the center of the board
@@ -131,20 +149,19 @@ JS
         6. don't let the computer to place the key which have value
 
 
-In version 2
-build a 3 * 3 board with JavaScript (then 6 * 6)
-use the nested for loop to create rows and columns
-create 3 row divs for putting the unit
+## In version 2
+* build a 3 * 3 board with JavaScript (then 5 * 5)
+* use the nested for loop to create rows and columns
+* create 3 row divs for putting the unit
 write the rows and columns info in data-row and data-column use .append()
 put same row different columns into a row div
-write CSS to make the board
-when want the row and column data, 
-use $(this).attr('data-row') or $(this).attr('column-row') to get the number
+* write CSS to make the board
 
-# do some css and html
-computer can change the profile with user
-# can change winning keys
-player 1 can be a computer
+## Still need to work on:
+- [ ] computer side smarter, like put keys in the center, then block the user
+- [ ] make winning keys different, now the diagonal have some issues with more winning keys
+- [ ] add a dropdown bar user can choose how many keys winning
+- [ ] do more css and html decorations
 
 
 
