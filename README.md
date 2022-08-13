@@ -7,13 +7,13 @@ https://hwlei888.github.io/tic-tac-toe/
 Technical Requirements
 Your app must:
 
-Render a game board in the browser
-Switch turns between X and O (or whichever markers you select); your game should prevent users from playing a turn into a square that is already occupied
-Visually display which side won if a player gets three in a row; or show a draw/"cat’s game" if neither wins
-Include separate HTML / CSS / JavaScript files
-Stick with KISS (Keep It Simple Stupid) and DRY (Don't Repeat Yourself) principles
-Use Javascript with jQuery (or vanilla DOM methods if you really prefer) for DOM manipulation
-Deploy your game online, where the rest of the world can access it
+* Render a game board in the browser
+* Switch turns between X and O (or whichever markers you select); your game should prevent users from playing a turn into a square that is already occupied
+* Visually display which side won if a player gets three in a row; or show a draw/"cat’s game" if neither wins
+* Include separate HTML / CSS / JavaScript files
+* Stick with KISS (Keep It Simple Stupid) and DRY (Don't Repeat Yourself) principles
+* Use Javascript with jQuery (or vanilla DOM methods if you really prefer) for DOM manipulation
+* Deploy your game online, where the rest of the world can access it
 Use semantic markup for HTML and CSS (adhere to best practices)
 
 
@@ -161,6 +161,7 @@ put same row different columns into a row div
 - [ ] computer side smarter, like put keys in the center, then block the user
 - [ ] make winning keys different, now the diagonal have some issues with more winning keys
 - [ ] add a dropdown bar user can choose how many keys winning
+- [ ] add a day mode and night mode
 - [ ] do more css and html decorations
 
 

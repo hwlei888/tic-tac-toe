@@ -21,13 +21,6 @@ const captainUrl = "url(graph/captain.png)";
 // for (let i = 0; i < board3.length; i++){
 //     board3[i] = new Array(3).fill(0);
 // }
-
-let boardThree = [
-    [0, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0]
-];
-
 //Build a 3 * 3 array with 0
 // [
 //     c0, c1, c2
@@ -35,6 +28,13 @@ let boardThree = [
 // r1  [0,  0,  0],
 // r2  [0,  0,  0] 
 // ];
+
+let boardThree = [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0]
+];
+
 
 // Build 5 * 5 board
 let boardFive = new Array(5);
@@ -52,8 +52,8 @@ for (let i = 0; i < boardEight.length; i++){
 /* ------------------------------------------------------------------------------------ */
 //global variables
 
-let isFirstPlayer = true;
-let key;
+let isFirstPlayer = true;//decide player one turn or player two
+let key; //decide which player win
 let chequerUrlOne; //chequer background
 let chequerHTMLOne = '&#10005'; //chequer html X
 let chequerUrlTwo; //chequer background
@@ -79,7 +79,7 @@ for (let i = 0; i < boardThree.length; i++){
                     .appendTo('.threeLineBoard')
 }
 
-// build 9 divs with rows and columns
+// build 9 divs with rows and columns, and put same row different columns div in the div class like boardThreeRow0 above
 //data method show no info in inspector html sector, need to check console with 'use' in console
 for (let row = 0; row < boardThree.length; row++){
     for (let column = 0; column < boardThree.length; column++){
@@ -103,7 +103,6 @@ for (let row = 0; row < boardThree.length; row++){
 //     }
 // }
 
-
 //Build a 5 * 5 board
 //build 5 rows with class row0 - row4
 for (let i = 0; i < boardFive.length; i++){
@@ -122,7 +121,6 @@ for (let row = 0; row < boardFive.length; row++){
                         .appendTo($(`.boardFiveRow${row}`));
     }
 }
-
 
 // for (let row = 0; row < boardFive.length; row++){
 //     for (let column = 0; column < boardFive.length; column++){
@@ -154,7 +152,6 @@ for (let row = 0; row < boardEight.length; row++){
     }
 }
 
-
 // for (let row = 0; row < boardEight.length; row++){
 //     for (let column = 0; column < boardEight.length; column++){
 //         $('<div></div>').addClass('chequer')
@@ -166,7 +163,6 @@ for (let row = 0; row < boardEight.length; row++){
 //     }
 // }
 
-
 /* ------------------------------------------------------------------------------------ */
 //choose board size
 
@@ -174,7 +170,7 @@ $('#dropdownBoardSize').on('change', function(){
     //if choose 3 * 3 size
     if($(this).val() === 'boardSize3'){ 
         
-        //Reset the old board first
+        //Reset all the board first
         nextRound(); 
         // display 3*3 board
         $('.threeLineBoard').css('display', 'block'); 
@@ -183,6 +179,7 @@ $('#dropdownBoardSize').on('change', function(){
         $('.eightLineBoard').css('display', 'none');
         board = boardThree;
     }
+    //if choose 5 * 5 size
     else if($(this).val() === 'boardSize5'){ 
 
         nextRound();
@@ -193,6 +190,7 @@ $('#dropdownBoardSize').on('change', function(){
         $('.eightLineBoard').css('display', 'none');
         board = boardFive;
     }
+    //if choose 8 * 8 size
     else if($(this).val() === 'boardSize8'){ 
 
         nextRound();
@@ -209,7 +207,7 @@ $('#dropdownBoardSize').on('change', function(){
 
 /* ------------------------------------------------------------------------------------ */
 
-//choose player profiles, set X and O as default
+//choose player profiles, set X and O as default in CSS and HTML
 $('#dropdownOne').on('change', function(){
     //if choose harry profile
     if($(this).val() === 'harry'){ 
@@ -232,6 +230,7 @@ $('#dropdownOne').on('change', function(){
         chequerUrlOne = ironmanUrl;
         chequerHTMLOne = '';
     }
+    //when player one is computer, set the initial profile as 'Start'
     else if($(this).val() === 'computerOne'){
         $('.pOneProfile').css('background-image', 'none');
         $('.pOneProfile p').css('opacity', '1')
@@ -250,7 +249,6 @@ $('#dropdownOne').on('change', function(){
 $('#dropdownTwo').on('change', function(){
     //if choose harry profile
     if($(this).val() === 'malfoy'){ 
-        // console.log('choose harry'); //for check
         $('.pTwoProfile').css('background-image', malfoyUrl);
         $('.pTwoProfile p').css('opacity', '0');
         chequerUrlTwo = malfoyUrl;
@@ -286,6 +284,7 @@ const makeDecision = function(){
     
     //Fair Game
     //loop around the whole array, if no 0 inside and key is not a number, then the game is fair
+    //key is to check if there is a winner, key = 1 player one win, =2 player two win
     let isGameFair = 0;
     for (let i = 0; i < board.length; i++){
         if(!board[i].includes(0)){
@@ -294,12 +293,11 @@ const makeDecision = function(){
     }
     
     if(isGameFair === board.length && typeof(key) !== 'number'){
-        console.log('Fair Game!'); //for check
     
         //show fair game label
         $('#fair').css('opacity', '1');
     
-        //both turn grey
+        //both profile turn grey
         $('#pOne').css({
             'background-color': '#e4e6e8',
             'color': 'black',
@@ -320,15 +318,16 @@ const makeDecision = function(){
         rounds += 1;     
         
         //set key === number but not 1 or -1
-        //because I don't want to click empty div and don't want rounds + 1 again
+        //because I don't want to click empty div and don't want rounds and tie value + 1 again
         key = 0;
     }
 
     /* ------------------------------------------------------------------------------------ */
     // if it is not a fair game
     //check if player1 or player2 win
+    //player one win
     if(key === 1){
-        console.log('Player One Win'); //for check
+        // console.log('Player One Win'); //for check
 
         //pop up you win label, change winner color
         $('#p1Win').css('opacity', '1');
@@ -341,7 +340,7 @@ const makeDecision = function(){
             'color': 'black'
         });
         
-        //set key !== 1
+        //set key !== 1, becuase I don't want to click empty div and don't want rounds and winner value + 1 again
         key = 0;
 
         //Player One win time + 1
@@ -353,8 +352,9 @@ const makeDecision = function(){
         rounds += 1;
 
     }
+    //player two win
     else if(key === -1){
-        console.log('Player Two Win'); //for check
+        // console.log('Player Two Win'); //for check
 
         //pop up you win label
         $('#p2Win').css('opacity', '1');
@@ -449,7 +449,7 @@ $('.pOneProfile').on('click', function(){
     }
 
     //change the profile html in case click profile part the above will run again and again
-    //becuase html is start is a condition
+    //becuase html is 'start' is a condition
     $('.pOneProfile p').html('&#10005');
     
 })
@@ -467,7 +467,7 @@ $('.chequer').on('click', function(){
 
     //if player two is computer
     if($('#dropdownTwo').val() === 'computerTwo'){
-        
+
         // console.log('computer two click');//for check
         
         //decide which profile user choose for player one, then decide which profile computer use
@@ -497,12 +497,13 @@ $('.chequer').on('click', function(){
             chequerHTMLTwo = '&#927';
         }
         
+        //get the row and column info from the div we click
         const idr = $(this).data('row');
         const idc = $(this).data('column');
         // console.log(idr); // for check
         // console.log(typeof(idr));//for check
         
-        //if no value in that div, and game not finish
+        //if no value in that div, and game not finish, which key is undefined or '', not equal to 0 or 1 or -1
         // if($(this).html() === '' && typeof(key) !== 'number'){
         //if value in that related matrix is 0, and game not finish
         if(board[idr][idc] === 0 && typeof(key) !== 'number'){
@@ -555,7 +556,7 @@ $('.chequer').on('click', function(){
                         board[idrInitial][idcInitial] = -1;
                         idrAI = idrInitial;
                         idcAI = idcInitial;
-                        break;
+                        break;//if that place is empty computer place the key and jump out of loop
                     }
                 }
  
@@ -563,9 +564,8 @@ $('.chequer').on('click', function(){
                 //find the exact div use idrAI and idcAI
                 $('div').each(function(){
                     if($(this).data('row') === idrAI && $(this).data('column') === idcAI){
-                        // $(this).html('&#927');
-                        $(this).html(chequerHTMLTwo);
-                        $(this).css('background-image', chequerUrlTwo);
+                        $(this).html(chequerHTMLTwo)
+                               .css('background-image', chequerUrlTwo);
                     }
                 })
 
@@ -596,7 +596,7 @@ $('.chequer').on('click', function(){
     //if player one is computer
     else if($('#dropdownOne').val() === 'computerOne'){
 
-        //after player one computer place the key
+        //after player one computer place the key, isFirstPlayer = false
         if(!isFirstPlayer){
 
             //human's turn
@@ -608,8 +608,8 @@ $('.chequer').on('click', function(){
                 board[idr][idc] = -1;
                     
                 //write html or show background in the clicked div box
-                $(this).html(chequerHTMLTwo);
-                $(this).css('background-image', chequerUrlTwo);
+                $(this).html(chequerHTMLTwo)
+                       .css('background-image', chequerUrlTwo);
         
                 //change player color to show who is the next one
                 $('#pOne').css({
@@ -660,8 +660,8 @@ $('.chequer').on('click', function(){
                 //find the exact div use idrAI and idcAI
                 $('div').each(function(){
                     if($(this).data('row') === idrAI && $(this).data('column') === idcAI){
-                        $(this).html(chequerHTMLOne);
-                        $(this).css('background-image', chequerUrlOne);
+                        $(this).html(chequerHTMLOne)
+                               .css('background-image', chequerUrlOne);
                     }
                 })
     
@@ -693,11 +693,11 @@ $('.chequer').on('click', function(){
     //human to human battle
     else{
         //find the row and column with data
-    
+
         //for attribute data-row method, will return a string like '1'
         // const idr = $(this).attr('data-row'); 
         // const idc = $(this).attr('data-column');
-    
+
         //for data method, will return a number directly like 1
         const idr = $(this).data('row'); 
         const idc = $(this).data('column');
@@ -707,9 +707,9 @@ $('.chequer').on('click', function(){
         
         //if no value in that div, and game not finish
         // if($(this).html() === '' && typeof(key) !== 'number'){
-        //if value in that related matrix is 0, and game not finish
+        //if no value in that div, and game not finish
         if(board[idr][idc] === 0 && typeof(key) !== 'number'){
-            
+
             // console.log('1st',key)//for check
         
             // if isFirstPlayer = true, it means it is the first player's turn
@@ -765,46 +765,6 @@ $('.chequer').on('click', function(){
         }
 
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
